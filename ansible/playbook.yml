@@ -1,0 +1,7 @@
+---
+- hosts: localhost
+  roles:
+    - dot-bash
+    - dot-git
+    - dot-vim
+    - dot-x11

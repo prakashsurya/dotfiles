@@ -1,0 +1,40 @@
+[user]
+	name = Prakash Surya
+	email = prakash.surya@delphix.com
+[core]
+	editor = vim
+[merge]
+	tool = vimdiff
+	conflictstyle = diff3
+[color]
+	ui = auto
+[push]
+	default = simple
+[alias]
+	b = branch -v
+	c = commit
+	d = diff
+	f = fetch
+	g = grep
+	l = log --decorate
+	r = remote -v
+	s = status
+
+	ap = add --patch
+	ca = commit --amend
+	co = checkout
+	cp = cherry-pick
+	dc = diff --cached
+	lg = log --decorate --oneline --graph
+	ls = log --decorate --pretty=short --stat
+	mt = mergetool
+	rs = reset
+
+	rba = rebase --abort
+	rbc = rebase --continue
+	rbi = rebase --interactive
+[reviewboard]
+	url = http://reviews.delphix.com
+[dlpx]
+	email = prakash.surya@delphix.com
+	ldap-user = psurya

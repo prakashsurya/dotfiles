@@ -1,0 +1,21 @@
+---
+- name: copy bash configuration files
+  copy:
+    src: "home/user/"
+    dest: "{{ ansible_env.HOME }}/"
+    owner: "{{ ansible_env.USER }}"
+    group: "{{ ansible_env.USER }}"
+    mode: 0644
+
+- name: create include directory
+  file:
+    path: "{{ ansible_env.HOME }}/.bashrc.d"
+    state: directory
+    owner: "{{ ansible_env.USER }}"
+    group: "{{ ansible_env.USER }}"
+    mode: 0755
+
+- name: install git-prompt file
+  get_url:
+    url: "https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh"
+    dest: "{{ ansible_env.HOME }}/.bashrc.d/50-git-prompt.bash"

@@ -1,0 +1,63 @@
+---
+- name: copy Vim configuration files
+  copy:
+    src: "home/user/"
+    dest: "{{ ansible_env.HOME }}/"
+    owner: "{{ ansible_env.USER }}"
+    group: "{{ ansible_env.USER }}"
+    mode: 0644
+
+- name: create base directory structure
+  file:
+    path: "{{ ansible_env.HOME }}/{{ item }}"
+    state: directory
+    owner: "{{ ansible_env.USER }}"
+    group: "{{ ansible_env.USER }}"
+    mode: 0755
+  with_items:
+    - .vim
+    - .vim/autoload
+    - .vim/colors
+    - .vim/bundle
+    - .vim/plugin
+    - .vim/syntax
+
+- name: install cscope plugin
+  get_url:
+    url: "http://cscope.sourceforge.net/cscope_maps.vim"
+    dest: "{{ ansible_env.HOME }}/.vim/plugin/cscope_maps.vim"
+
+- name: install tpope's vim pathogen
+  get_url:
+    url: "https://tpo.pe/pathogen.vim"
+    dest: "{{ ansible_env.HOME }}/.vim/autoload/pathogen.vim"
+
+- name: install tpope's vim bundles
+  git:
+    repo: "git://github.com/tpope/{{ item }}.git"
+    dest: "{{ ansible_env.HOME }}/.vim/bundle/{{ item }}"
+    update: yes
+    depth: 1
+    accept_hostkey: yes
+  with_items:
+    - "vim-fugitive"
+    - "vim-scriptease"
+    - "vim-sensible"
+    - "vim-sleuth"
+
+- name: install non-tpope vim bundles
+  git:
+    repo: '{{ item.repo }}'
+    dest: '{{ ansible_env.HOME }}/.vim/bundle/{{ item.dest }}'
+    update: yes
+    depth: 1
+    accept_hostkey: yes
+  with_items:
+    - repo: 'git://github.com/vim-airline/vim-airline.git'
+      dest: 'vim-airline'
+    - repo: 'git://github.com/vim-airline/vim-airline-themes.git'
+      dest: 'vim-airline-themes'
+    - repo: 'git://github.com/altercation/vim-colors-solarized.git'
+      dest: 'vim-colors-solarized'
+    - repo: 'git://github.com/airblade/vim-gitgutter.git'
+      dest: 'vim-gitgutter'
