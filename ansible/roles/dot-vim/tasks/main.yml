@@ -62,3 +62,11 @@
       dest: 'vim-colors-solarized'
     - repo: 'git://github.com/airblade/vim-gitgutter.git'
       dest: 'vim-gitgutter'
+    - repo: 'git://github.com/wincent/command-t.git'
+      dest: 'command-t'
+
+- name: compile command-t extention
+  shell: "ruby extconf.rb && make"
+  args:
+    chdir: "{{ ansible_env.HOME }}/.vim/bundle/command-t/ruby/command-t"
+    creates: "{{ ansible_env.HOME }}/.vim/bundle/command-t/ruby/command-t/ext.so"

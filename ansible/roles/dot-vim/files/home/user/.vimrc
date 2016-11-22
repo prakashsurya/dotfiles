@@ -31,6 +31,8 @@ set textwidth=72
 set wrap
 set wrapscan
 
+let mapleader=","
+
 " #############################################################################
 " This places the cursor in it's previous location after opening a file.
 "
