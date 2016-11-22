@@ -44,6 +44,7 @@
     - "vim-scriptease"
     - "vim-sensible"
     - "vim-sleuth"
+    - "vim-vinegar"
 
 - name: install non-tpope vim bundles
   git:
