@@ -12,4 +12,9 @@ if [[ $EUID -eq 0 ]]; then
 	exit 1
 fi
 
+if [[ ! -f $TOP/ansible/venv/bin/activate ]]; then
+	$TOP/scripts/virtualenv-install.sh
+fi
+
+source $TOP/ansible/venv/bin/activate
 ansible-playbook -i $TOP/ansible/inventory $TOP/ansible/playbook.yml
