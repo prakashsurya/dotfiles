@@ -3,5 +3,6 @@
   roles:
     - dot-bash
     - dot-git
+    - dot-tmux
     - dot-vim
     - dot-x11
