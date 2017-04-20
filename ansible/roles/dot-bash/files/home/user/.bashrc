@@ -27,6 +27,15 @@ export PAGER='less'
 export PATH="$HOME/bin:$PATH"
 export TERM='xterm-256color'
 
+#
+# We handle the liquidprompt file a little differently. We only want
+# this file to be sourced when running from an interactive shell, i.e.
+# not from a script or scp. Thus, we prevent the logic below from
+# loading it by not using the ".bash" file extention, and instead,
+# condintionally load it here.
+#
+[[ $- = *i* ]] && source $HOME/.bashrc.d/liquidprompt
+
 for file in `ls $HOME/.bashrc.d/*.bash | sort -n`; do
 	[ -r $file ] && source $file
 done

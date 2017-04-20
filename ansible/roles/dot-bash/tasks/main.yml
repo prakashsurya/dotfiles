@@ -18,8 +18,8 @@
     path: "{{ ansible_env.HOME }}/.bashrc.d/50-git-prompt.bash"
     state: absent
 
-- name: install git-prompt file
+- name: install liquidprompt file
   get_url:
     url: "https://raw.githubusercontent.com/nojhan/liquidprompt/master/liquidprompt"
-    dest: "{{ ansible_env.HOME }}/.bashrc.d/50-liquidprompt.bash"
+    dest: "{{ ansible_env.HOME }}/.bashrc.d/liquidprompt"
     validate_certs: no
