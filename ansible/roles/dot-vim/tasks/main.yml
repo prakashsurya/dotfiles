@@ -4,7 +4,6 @@
     src: "home/user/"
     dest: "{{ ansible_env.HOME }}/"
     owner: "{{ ansible_env.USER }}"
-    group: "{{ ansible_env.USER }}"
     mode: 0644
 
 - name: create base directory structure
@@ -12,7 +11,6 @@
     path: "{{ ansible_env.HOME }}/{{ item }}"
     state: directory
     owner: "{{ ansible_env.USER }}"
-    group: "{{ ansible_env.USER }}"
     mode: 0755
   with_items:
     - .vim
