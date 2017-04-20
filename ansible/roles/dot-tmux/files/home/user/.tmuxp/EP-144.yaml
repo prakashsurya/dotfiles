@@ -1,0 +1,11 @@
+session_name: EP-144
+start_directory: ~/projects/EP-144
+windows:
+  - window_name: main
+    layout: main-vertical
+    panes:
+      - focus: true
+        shell_command: blank
+      - blank
+      - blank
+      - blank
