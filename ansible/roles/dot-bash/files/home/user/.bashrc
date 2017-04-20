@@ -1,6 +1,5 @@
 #!/bin/bash
 
-set -o vi
 shopt -s checkwinsize
 shopt -s histappend
 

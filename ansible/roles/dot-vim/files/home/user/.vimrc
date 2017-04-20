@@ -33,6 +33,12 @@ set wrapscan
 
 let mapleader=","
 
+"
+" To avoid reaching for the escape key, we create an alternate mapping
+" for it while in insert mode.
+"
+imap kj <Esc>
+
 " #############################################################################
 " This places the cursor in it's previous location after opening a file.
 "
