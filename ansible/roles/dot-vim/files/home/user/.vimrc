@@ -34,6 +34,18 @@ set wrapscan
 let mapleader=","
 
 "
+" Easy execution of Vimux commands, for running shell commands and
+" utilities inside tmux panes.
+"
+map <Leader>vp :VimuxPromptCommand<CR>
+map <Leader>vl :VimuxRunLastCommand<CR>
+map <Leader>vi :VimuxInspectRunner<CR>
+map <Leader>vz :VimuxZoomRunner<CR>
+map <Leader>vq :VimuxCloseRunner<CR>
+map <Leader>vs :VimuxInterruptRunner<CR>
+map <Leader>vc :VimuxClearRunnerHistory<CR>
+
+"
 " To avoid reaching for the escape key, we create an alternate mapping
 " for it while in insert mode.
 "
