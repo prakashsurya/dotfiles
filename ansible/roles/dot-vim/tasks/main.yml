@@ -64,6 +64,8 @@
       dest: 'vim-gitgutter'
     - repo: 'git://github.com/wincent/command-t.git'
       dest: 'command-t'
+    - repo: 'git://github.com/christoomey/vim-tmux-navigator.git'
+      dest: 'vim-tmux-navigator'
 
 - name: compile command-t extention
   shell: "ruby extconf.rb && make"
