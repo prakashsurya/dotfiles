@@ -4,3 +4,6 @@
 ####################################
 
 LP_MARK_PREFIX="\n"
+
+LP_ENABLE_FQDN="1"
+LP_ENABLE_TIME="1"
