@@ -74,3 +74,4 @@
   args:
     chdir: "{{ ansible_env.HOME }}/.vim/bundle/command-t/ruby/command-t"
     creates: "{{ ansible_env.HOME }}/.vim/bundle/command-t/ruby/command-t/ext.so"
+  ignore_errors: yes
