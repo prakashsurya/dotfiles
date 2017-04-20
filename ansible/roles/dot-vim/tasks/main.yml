@@ -24,11 +24,13 @@
   get_url:
     url: "http://cscope.sourceforge.net/cscope_maps.vim"
     dest: "{{ ansible_env.HOME }}/.vim/plugin/cscope_maps.vim"
+    validate_certs: no
 
 - name: install tpope's vim pathogen
   get_url:
     url: "https://tpo.pe/pathogen.vim"
     dest: "{{ ansible_env.HOME }}/.vim/autoload/pathogen.vim"
+    validate_certs: no
 
 - name: install tpope's vim bundles
   git:

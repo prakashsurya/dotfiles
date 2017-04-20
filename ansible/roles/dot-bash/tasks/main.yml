@@ -22,3 +22,4 @@
   get_url:
     url: "https://raw.githubusercontent.com/nojhan/liquidprompt/master/liquidprompt"
     dest: "{{ ansible_env.HOME }}/.bashrc.d/50-liquidprompt.bash"
+    validate_certs: no
