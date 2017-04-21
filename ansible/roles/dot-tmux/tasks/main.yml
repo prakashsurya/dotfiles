@@ -5,3 +5,25 @@
     dest: "{{ ansible_env.HOME }}/"
     owner: "{{ ansible_env.USER }}"
     mode: 0644
+
+- name: create .tmux directory
+  file:
+    path: "{{ ansible_env.HOME }}/.tmux"
+    state: directory
+    owner: "{{ ansible_env.USER }}"
+    mode: 0755
+
+- name: install tmux plugins
+  git:
+    repo: '{{ item.repo }}'
+    dest: '{{ ansible_env.HOME }}/.tmux/{{ item.dest }}'
+    update: yes
+    depth: 1
+    accept_hostkey: yes
+  with_items:
+    - repo: 'git://github.com/tmux-plugins/tmux-copycat.git'
+      dest: 'tmux-copycat'
+    - repo: 'git://github.com/tmux-plugins/tmux-open.git'
+      dest: 'tmux-open'
+    - repo: 'git://github.com/tmux-plugins/tmux-yank.git'
+      dest: 'tmux-yank'
