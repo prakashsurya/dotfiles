@@ -1,3 +1,10 @@
+"
+" Pathogen does not work in compatibility mode, so we must ensure this
+" is not set, prior to attempting to use it.
+"
+" See also: https://github.com/tpope/vim-pathogen/issues/50
+"
+set nocompatible
 execute pathogen#infect()
 syntax on
 filetype plugin indent on
