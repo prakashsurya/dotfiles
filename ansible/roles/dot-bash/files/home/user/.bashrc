@@ -3,14 +3,10 @@
 shopt -s checkwinsize
 shopt -s histappend
 
-alias df='df --human-readable'
-alias du='du --human-readable'
-alias grep='grep --color=auto'
 alias ls='ls --human-readable --classify --color=auto'
 alias ll='ls -l'
 alias la='ll --almost-all'
 alias lr='la --recursive'
-alias mkdir='mkdir --parents --verbose'
 alias vi='vim'
 
 alias s='ssh'
