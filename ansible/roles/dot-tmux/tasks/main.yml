@@ -16,14 +16,16 @@
 - name: install tmux plugins
   git:
     repo: "git://github.com/tmux-plugins/{{ item }}.git"
-    dest: "{{ ansible_env.HOME }}/.tmux/{{ item }}"
+    dest: "{{ ansible_env.HOME }}/.tmux/plugins/{{ item }}"
     update: yes
     depth: 1
     force: yes
     accept_hostkey: yes
   with_items:
+    - tmux-continuum
     - tmux-copycat
     - tmux-open
     - tmux-pain-control
+    - tmux-resurrect
     - tmux-sensible
     - tmux-yank
