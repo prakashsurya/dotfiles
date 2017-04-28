@@ -1,0 +1,11 @@
+session_name: upstreaming
+start_directory: ~/projects/upstreaming
+windows:
+  - window_name: main
+    layout: main-vertical
+    panes:
+      - focus: true
+        shell_command: blank
+      - blank
+      - blank
+      - blank
