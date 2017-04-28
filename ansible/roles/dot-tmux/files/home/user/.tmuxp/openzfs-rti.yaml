@@ -1,0 +1,11 @@
+session_name: openzfs-rti
+start_directory: ~/projects/openzfs-rti
+windows:
+  - window_name: main
+    layout: main-vertical
+    panes:
+      - focus: true
+        shell_command: blank
+      - blank
+      - blank
+      - blank
