@@ -8,8 +8,6 @@
 	conflictstyle = diff3
 [color]
 	ui = auto
-[push]
-	default = simple
 [alias]
 	b = branch -v
 	c = commit
