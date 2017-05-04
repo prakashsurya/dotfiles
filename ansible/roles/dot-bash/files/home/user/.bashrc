@@ -44,7 +44,8 @@ unset file
 #
 # When inside of a tmux session, the "$TMUX" environment variable will
 # be set, so we rely on this to prevent recursively attaching to the
-# tmux session when already inside of a session.
+# tmux session when already inside of a session. Also, we only want to
+# start and/or attach to a tmux session if this is an interactive login.
 #
 # Additionally, when tmux exits with a successful exit code, we
 # automatically call "exit" so that we close the remote connection
@@ -59,6 +60,7 @@ unset file
 # call exit when tmux exits successfully, and avoid exiting the non-tmux
 # remote shell when tmux exits with any non-successful error code.
 #
-if [[ -n "$SSH_CONNECTION" ]] && [[ -z "$TMUX" ]] && hash tmux &>/dev/null; then
+if [[ "$-" == "*i*" ]] && [[ -n "$SSH_CONNECTION" ]] && \
+    [[ -z "$TMUX" ]] && hash tmux &>/dev/null; then
 	tmux new-session -As ssh && exit
 fi
