@@ -1,0 +1,11 @@
+session_name: openzfs-jenkins
+start_directory: ~/projects/openzfs-jenkins
+windows:
+  - window_name: main
+    layout: main-vertical
+    panes:
+      - focus: true
+        shell_command: blank
+      - blank
+      - blank
+      - blank
