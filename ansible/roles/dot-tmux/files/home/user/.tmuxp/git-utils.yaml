@@ -1,0 +1,11 @@
+session_name: git-utils
+start_directory: ~/projects/git-utils
+windows:
+  - window_name: main
+    layout: main-vertical
+    panes:
+      - focus: true
+        shell_command: blank
+      - blank
+      - blank
+      - blank
