@@ -24,13 +24,27 @@ export PATH="$HOME/bin:$PATH"
 export TERM='xterm-256color'
 
 #
+# Configure environment to support pyenv.
+# For details, see: https://github.com/pyenv/pyenv/blob/master/README.md
+#
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+if [[ "$(type -t pyenv)" != "function" ]]; then
+	#
+	# We must protect this with the conditional to avoid an invinite
+	# loop. For details, see: https://github.com/pyenv/pyenv/issues/264
+	#
+	eval "$(pyenv init -)"
+fi
+
+#
 # We handle the liquidprompt file a little differently. We only want
 # this file to be sourced when running from an interactive shell, i.e.
 # not from a script or scp. Thus, we prevent the logic below from
 # loading it by not using the ".bash" file extention, and instead,
 # condintionally load it here.
 #
-[[ $- = *i* ]] && source $HOME/.bashrc.d/liquidprompt
+[[ "$-" == *i* ]] && source $HOME/.bashrc.d/liquidprompt
 
 for file in `ls $HOME/.bashrc.d/*.bash | sort -n`; do
 	[ -r $file ] && source $file
@@ -60,7 +74,7 @@ unset file
 # call exit when tmux exits successfully, and avoid exiting the non-tmux
 # remote shell when tmux exits with any non-successful error code.
 #
-if [[ "$-" == "*i*" ]] && [[ -n "$SSH_CONNECTION" ]] && \
+if [[ "$-" == *i* ]] && [[ -n "$SSH_CONNECTION" ]] && \
     [[ -z "$TMUX" ]] && hash tmux &>/dev/null; then
 	tmux new-session -As ssh && exit
 fi

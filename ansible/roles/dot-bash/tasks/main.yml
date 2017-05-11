@@ -23,3 +23,11 @@
     url: "https://raw.githubusercontent.com/nojhan/liquidprompt/master/liquidprompt"
     dest: "{{ ansible_env.HOME }}/.bashrc.d/liquidprompt"
     validate_certs: no
+
+- name: install pyenv
+  git:
+    repo: "git://github.com/pyenv/pyenv.git"
+    dest: "{{ ansible_env.HOME }}/.pyenv"
+    update: yes
+    depth: 1
+    accept_hostkey: yes
