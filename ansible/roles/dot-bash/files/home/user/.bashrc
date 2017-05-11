@@ -24,8 +24,29 @@ export PATH="$HOME/bin:$PATH"
 export TERM='xterm-256color'
 
 #
+# We handle the liquidprompt file a little differently. We only want
+# this file to be sourced when running from an interactive shell, i.e.
+# not from a script or scp. Thus, we prevent the logic below from
+# loading it by not using the ".bash" file extention, and instead,
+# condintionally load it here.
+#
+[[ "$-" == *i* ]] && source $HOME/.bashrc.d/liquidprompt
+
+#
+# Load any additional files found in the ".bashrc.d" directory.
+#
+for file in `ls $HOME/.bashrc.d/*.bash | sort -n`; do
+	[ -r $file ] && source $file
+done
+unset file
+
+#
 # Configure environment to support pyenv.
 # For details, see: https://github.com/pyenv/pyenv/blob/master/README.md
+#
+# Note, we have to perform this logic after we source any of the
+# ".bashrc.d" files, as we want to ensure "$PYENV_ROOT/bin" is at the
+# front of PATH", even if PATH is modified by the ".bashrc.d" files.
 #
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
@@ -37,20 +58,6 @@ if [[ "$(type -t pyenv)" != "function" ]]; then
 	eval "$(pyenv init -)"
 	eval "$(pyenv virtualenv-init -)"
 fi
-
-#
-# We handle the liquidprompt file a little differently. We only want
-# this file to be sourced when running from an interactive shell, i.e.
-# not from a script or scp. Thus, we prevent the logic below from
-# loading it by not using the ".bash" file extention, and instead,
-# condintionally load it here.
-#
-[[ "$-" == *i* ]] && source $HOME/.bashrc.d/liquidprompt
-
-for file in `ls $HOME/.bashrc.d/*.bash | sort -n`; do
-	[ -r $file ] && source $file
-done
-unset file
 
 #
 # When connecting to a system using SSH, if tmux is available,
