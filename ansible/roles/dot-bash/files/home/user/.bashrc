@@ -35,6 +35,7 @@ if [[ "$(type -t pyenv)" != "function" ]]; then
 	# loop. For details, see: https://github.com/pyenv/pyenv/issues/264
 	#
 	eval "$(pyenv init -)"
+	eval "$(pyenv virtualenv-init -)"
 fi
 
 #

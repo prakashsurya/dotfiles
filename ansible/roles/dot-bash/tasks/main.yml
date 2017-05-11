@@ -31,3 +31,13 @@
     update: yes
     depth: 1
     accept_hostkey: yes
+
+- name: install pyenv plugins
+  git:
+    repo: "git://github.com/pyenv/{{ item }}.git"
+    dest: "{{ ansible_env.HOME }}/.pyenv/plugins/{{ item }}"
+    update: yes
+    depth: 1
+    accept_hostkey: yes
+  with_items:
+    - pyenv-virtualenv
