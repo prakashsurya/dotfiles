@@ -1,0 +1,11 @@
+session_name: devops-gate
+start_directory: ~/projects/devops-gate
+windows:
+  - window_name: main
+    layout: main-vertical
+    panes:
+      - focus: true
+        shell_command: blank
+      - blank
+      - blank
+      - blank
