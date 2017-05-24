@@ -1,5 +1,5 @@
-*font:                  xft:Courier New:pixelsize=12:antialias=false
-*boldFont:              xft:Courier New:bold:pixelsize=12:antialias=false
+*font:                  "xft:Courier New:pixelsize=12:antialias=false"
+*boldFont:              "xft:Courier New:bold:pixelsize=12:antialias=false"
 
 URxvt.scrollBar:        false
 URxvt.cursorBlink:      true
