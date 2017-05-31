@@ -1,5 +1,5 @@
-session_name: openzfs-jenkins
-start_directory: ~/projects/openzfs-jenkins
+session_name: openzfs
+start_directory: ~/projects/openzfs
 windows:
   - window_name: main
     layout: main-vertical
