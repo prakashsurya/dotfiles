@@ -24,15 +24,6 @@ export PATH="$HOME/bin:$PATH"
 export TERM='xterm-256color'
 
 #
-# We handle the liquidprompt file a little differently. We only want
-# this file to be sourced when running from an interactive shell, i.e.
-# not from a script or scp. Thus, we prevent the logic below from
-# loading it by not using the ".bash" file extention, and instead,
-# condintionally load it here.
-#
-[[ $- == *i* ]] && source $HOME/.bashrc.d/liquidprompt
-
-#
 # Load any additional files found in the ".bashrc.d" directory.
 #
 for file in `ls $HOME/.bashrc.d/*.bash | sort -n`; do
@@ -58,6 +49,18 @@ if [[ "$(type -t pyenv)" != "function" ]]; then
 	eval "$(pyenv init -)"
 	eval "$(pyenv virtualenv-init -)"
 fi
+
+#
+# We only want this file to be sourced when running from an interactive
+# shell, i.e. not from a script or scp. Thus, we prevent the logic above
+# from loading it by not using the ".bash" file extention, and instead,
+# conditionally load it here.
+#
+# Also note, this file must be source *after* the environment is
+# manipulated via the pyenv calls just above. Otherwise, the
+# LP_ENABLE_RUNTIME functionality will not work correctly.
+#
+[[ $- == *i* ]] && source $HOME/.bashrc.d/liquidprompt
 
 #
 # When connecting to a system using SSH, if tmux is available,
