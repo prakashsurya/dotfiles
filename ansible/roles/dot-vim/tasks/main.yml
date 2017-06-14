@@ -72,6 +72,6 @@
 - name: compile command-t extention
   shell: "ruby extconf.rb && make"
   args:
-    chdir: "{{ ansible_env.HOME }}/.vim/bundle/command-t/ruby/command-t"
-    creates: "{{ ansible_env.HOME }}/.vim/bundle/command-t/ruby/command-t/ext.so"
+    chdir: "{{ ansible_env.HOME }}/.vim/bundle/command-t/ruby/command-t/ext/command-t"
+    creates: "{{ ansible_env.HOME }}/.vim/bundle/command-t/ruby/command-t/ext/command-t/ext.so"
   ignore_errors: yes
