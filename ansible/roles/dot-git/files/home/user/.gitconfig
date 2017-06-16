@@ -36,3 +36,5 @@
 [dlpx]
 	email = prakash.surya@delphix.com
 	ldap-user = psurya
+[rerere]
+	enabled = true
