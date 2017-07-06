@@ -2,6 +2,7 @@
 - hosts: localhost
   roles:
     - dot-bash
+    - dot-gdrive
     - dot-git
     - dot-tmux
     - dot-vim

@@ -1,0 +1,14 @@
+---
+#
+# This sets up the configuration files used by the "drive" command line
+# utility, which provides a method for syncing files and directories
+# with Google's Drive.
+#
+# See also: https://github.com/odeke-em/drive
+#
+- name: copy drive configuration files
+  copy:
+    src: "home/user/"
+    dest: "{{ ansible_env.HOME }}/"
+    owner: "{{ ansible_env.USER }}"
+    mode: 0644
