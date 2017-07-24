@@ -1,10 +1,7 @@
 ---
 #
-# This sets up the configuration files used by the "drive" command line
-# utility, which provides a method for syncing files and directories
-# with Google's Drive.
-#
-# See also: https://github.com/odeke-em/drive
+# This sets up the configuration files used by the "jrnl" command line
+# utility, See also: https://github.com/maebert/jrnl
 #
 - name: create base directory structure
   file:
@@ -14,10 +11,16 @@
     mode: 0755
   with_items:
     - gdrive
-    - gdrive/ARCHIVE
-    - gdrive/CURRENT
-    - gdrive/INBOX
-    - gdrive/PUBLIC
+    - gdrive/JRNL
+
+- name: create base file structure
+  file:
+    path: "{{ ansible_env.HOME }}/{{ item }}"
+    state: touch
+    owner: "{{ ansible_env.USER }}"
+    mode: 0755
+  with_items:
+    - gdrive/JRNL/default.jrnl
 
 - name: copy drive configuration files
   copy:
