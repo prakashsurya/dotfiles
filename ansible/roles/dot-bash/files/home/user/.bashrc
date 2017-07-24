@@ -3,18 +3,13 @@
 shopt -s checkwinsize
 shopt -s histappend
 
-alias   j='jrnl'
-alias  jt='jrnl -on today'
-alias jte='[[ $(jt) ]] && jrnl -on today --edit'
-alias  jl='jrnl -n 1'
-alias jle='[[ $(jl) ]] && jrnl -n 1 --edit'
-
 alias ls='ls --human-readable --classify --color=auto'
 alias ll='ls -l'
 alias la='ll --almost-all'
 alias lr='la --recursive'
 alias vi='vim'
 
+alias j='jrnl'
 alias s='ssh'
 alias c='clear'
 alias g='git'
