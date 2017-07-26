@@ -9,6 +9,13 @@
     - .local
     - .local/bin
 
+- name: copy executable files
+  copy:
+    src: "home/user/"
+    dest: "{{ ansible_env.HOME }}/"
+    owner: "{{ ansible_env.USER }}"
+    mode: 0755
+
 - name: install diff-so-fancy
   get_url:
     url: "https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy"
