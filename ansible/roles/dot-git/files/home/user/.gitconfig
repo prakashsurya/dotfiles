@@ -3,11 +3,12 @@
 	email = prakash.surya@delphix.com
 [core]
 	editor = vim
+	pager = "diff-so-fancy | less --tabs=4 -RFX"
 [merge]
 	tool = vimdiff
 	conflictstyle = diff3
 [color]
-	ui = auto
+	ui = true
 [diff]
 	indentHeuristic = on
 [alias]
@@ -17,6 +18,7 @@
 	f = fetch
 	g = grep
 	l = log --decorate
+	p = !git --no-pager diff --no-color
 	r = remote -v
 	s = status
 
@@ -28,6 +30,7 @@
 	lg = log --decorate --oneline --graph
 	ls = log --decorate --pretty=short --stat
 	mt = mergetool
+	pc = !git --no-pager diff --cached --no-color
 	rs = reset
 
 	rba = rebase --abort
@@ -42,3 +45,20 @@
 	jenkins-token-platform-jenkins-delphix-com = 4631b02012d3a38db9ff404b0fcabfdd
 [rerere]
 	enabled = true
+[interactive]
+	diffFilter = diff-so-fancy
+[color "diff-highlight"]
+	oldNormal = red
+	oldHighlight = red 52
+	newNormal = green
+	newHighlight = green 22
+[color "diff"]
+	meta = 227
+	frag = magenta
+	commit = 227
+	old = red
+	new = green
+	whitespace = red reverse
+[diff-so-fancy]
+	stripLeadingSymbols = false
+	markEmptyLines = false
