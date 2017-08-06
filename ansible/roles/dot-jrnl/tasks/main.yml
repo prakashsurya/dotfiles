@@ -10,8 +10,7 @@
     owner: "{{ ansible_env.USER }}"
     mode: 0755
   with_items:
-    - gdrive
-    - gdrive/JRNL
+    - .jrnl
 
 - name: create base file structure
   file:
@@ -20,7 +19,7 @@
     owner: "{{ ansible_env.USER }}"
     mode: 0755
   with_items:
-    - gdrive/JRNL/default.jrnl
+    - .jrnl/default.jrnl
 
 - name: copy drive configuration files
   copy:
