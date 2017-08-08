@@ -6,6 +6,11 @@
     owner: "{{ ansible_env.USER }}"
     mode: 0644
 
+- name: remove .tmuxp directory
+  file:
+    path: "{{ ansible_env.HOME }}/.tmuxp"
+    state: absent
+
 - name: create .tmux directory
   file:
     path: "{{ ansible_env.HOME }}/.tmux"
