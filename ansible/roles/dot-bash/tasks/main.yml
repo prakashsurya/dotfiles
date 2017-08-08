@@ -41,3 +41,16 @@
     accept_hostkey: yes
   with_items:
     - pyenv-virtualenv
+
+#
+# We're using the most recent tag at the time this change was added to
+# the repository. There aren't binaries for the on-going "master"
+# branch, so a release has to be chosen. As new releases of direnv are
+# developed, the release we pull from should be updated.
+#
+- name: install direnv
+  get_url:
+    url: "https://github.com/direnv/direnv/releases/download/v2.12.2/direnv.linux-amd64"
+    dest: "{{ ansible_env.HOME }}/.local/bin/direnv"
+    validate_certs: no
+    mode: 0755

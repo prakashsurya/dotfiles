@@ -25,6 +25,13 @@ export PATH="$HOME/bin:$PATH"
 export TERM='xterm-256color'
 
 #
+# Various executable utilities (scripts, binaries, etc.) in this
+# directory, so it needs to be apart of the PATH so these utilities can
+# be easily accessible.
+#
+export PATH="$HOME/.local/bin:$PATH"
+
+#
 # Load any additional files found in the ".bashrc.d" directory.
 #
 for file in `ls $HOME/.bashrc.d/*.bash | sort -n`; do
@@ -50,6 +57,12 @@ if [[ "$(type -t pyenv)" != "function" ]]; then
 	eval "$(pyenv init -)"
 	eval "$(pyenv virtualenv-init -)"
 fi
+
+#
+# For direnv to work properly it needs to be hooked into the shell; this
+# is how we accomplish that.
+#
+eval "$(direnv hook bash)"
 
 #
 # We only want this file to be sourced when running from an interactive
