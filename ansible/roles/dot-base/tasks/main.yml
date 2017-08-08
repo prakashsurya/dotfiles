@@ -15,18 +15,3 @@
     dest: "{{ ansible_env.HOME }}/"
     owner: "{{ ansible_env.USER }}"
     mode: 0755
-
-#
-# We're pulling the diff-highlight script from the "v2.13.2" tag rather
-# than "master", because after this tag the script was split into a Perl
-# module, and the actual diff-highlight script simply uses this module.
-# It'd require slightly more work to install the Perl module _and_ the
-# diff-highlight script, so I opted to use a slightly older version to
-# ease the installation.
-#
-- name: install diff-highlight
-  get_url:
-    url: "https://raw.githubusercontent.com/git/git/v2.13.2/contrib/diff-highlight/diff-highlight"
-    dest: "{{ ansible_env.HOME }}/.local/bin/diff-highlight"
-    validate_certs: no
-    mode: 0755
