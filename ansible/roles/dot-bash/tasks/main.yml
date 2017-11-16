@@ -42,6 +42,24 @@
   with_items:
     - pyenv-virtualenv
 
+- name: install rbenv
+  git:
+    repo: "git://github.com/rbenv/rbenv.git"
+    dest: "{{ ansible_env.HOME }}/.rbenv"
+    update: yes
+    depth: 1
+    accept_hostkey: yes
+
+- name: install rbenv plugins
+  git:
+    repo: "git://github.com/rbenv/{{ item }}.git"
+    dest: "{{ ansible_env.HOME }}/.rbenv/plugins/{{ item }}"
+    update: yes
+    depth: 1
+    accept_hostkey: yes
+  with_items:
+    - ruby-build
+
 #
 # We're using the most recent tag at the time this change was added to
 # the repository. There aren't binaries for the on-going "master"
