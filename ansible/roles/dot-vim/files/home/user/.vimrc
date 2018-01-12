@@ -38,6 +38,14 @@ set textwidth=72
 set wrap
 set wrapscan
 
+"
+" Configure the "command-t" plugin to use "git ls-files" to generate its
+" list of files; this way, files in .gitignore are ignored.
+"
+" See also: https://github.com/wincent/command-t/blob/master/doc/command-t.txt
+"
+let g:CommandTFileScanner="git"
+
 let mapleader=","
 
 "
