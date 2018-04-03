@@ -1,0 +1,4 @@
+#!/bin/bash -eux
+
+SIZE=${1:-12}
+st -f "Courier New:pixelsize=$SIZE"
