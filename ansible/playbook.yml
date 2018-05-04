@@ -6,6 +6,7 @@
     - dot-gdrive
     - dot-git
     - dot-jrnl
+    - dot-ssh
     - dot-tmux
     - dot-vim
     - dot-x11
