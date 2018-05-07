@@ -24,11 +24,7 @@ export PAGER='less'
 export PATH="$HOME/bin:$PATH"
 export TERM='xterm-256color'
 
-#
-# Various executable utilities (scripts, binaries, etc.) in this
-# directory, so it needs to be apart of the PATH so these utilities can
-# be easily accessible.
-#
+export PATH="/opt/hub/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 
 #
