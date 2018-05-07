@@ -1,0 +1,3 @@
+#!/bin/bash
+
+rdesktop -g 1920x1040 rdp.delphix.com
