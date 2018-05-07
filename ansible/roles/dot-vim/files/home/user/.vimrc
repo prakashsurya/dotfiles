@@ -28,7 +28,6 @@ set ignorecase
 set incsearch
 set linebreak
 set list
-set mouse=nvi
 set number
 set ruler
 set showmatch
