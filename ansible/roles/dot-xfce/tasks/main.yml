@@ -1,0 +1,21 @@
+---
+- name: check if file exists
+  stat:
+    path: "{{ ansible_env.HOME }}/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-keyboard-shortcuts.xml"
+  register: file
+
+- name: remove shortcuts
+  lineinfile:
+    path: "{{ file.stat.path }}"
+    regexp: '<property name="{{ item }}" .*'
+    state: absent
+  with_items:
+    - XF86Calculator
+    - XF86Display
+    - XF86Explorer
+    - XF86HomePage
+    - XF86Mail
+    - XF86Messenger
+    - XF86Music
+    - XF86WWW
+  when: file.stat.isreg is defined and file.stat.isreg
