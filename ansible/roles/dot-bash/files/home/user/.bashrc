@@ -9,10 +9,11 @@ alias la='ll --almost-all'
 alias lr='la --recursive'
 alias vi='vim'
 
-alias j='jrnl'
-alias s='ssh'
 alias c='clear'
 alias g='git'
+alias j='jrnl'
+alias s='ssh'
+alias t='todo-txt'
 
 export EDITOR='/usr/bin/vim'
 export GREP_COLOR='1;33'
