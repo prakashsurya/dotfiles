@@ -41,6 +41,7 @@
 [dlpx]
 	email = prakash.surya@delphix.com
 	ldap-user = psurya
+	appliance-user = delphix
 	onelogin-user = prakash.surya
 	jenkins-token-platform-jenkins-delphix-com = 4631b02012d3a38db9ff404b0fcabfdd
 	jenkins-token-ops-jenkins-delphix-com = 6010c11932f6b22da4a904b5d0d26ded
