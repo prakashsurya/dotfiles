@@ -45,6 +45,7 @@
 	onelogin-user = prakash.surya
 	jenkins-token-platform-jenkins-delphix-com = 4631b02012d3a38db9ff404b0fcabfdd
 	jenkins-token-ops-jenkins-delphix-com = 6010c11932f6b22da4a904b5d0d26ded
+	jenkins-token-selfservice-jenkins-delphix-com = 0dd19b6796a8e73fa681f456b845eae8
 [rerere]
 	enabled = true
 [interactive]
