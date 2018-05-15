@@ -7,7 +7,7 @@
   "default_minute": 0,
   "highlight": true,
   "journals": {
-    "default": "/home/psurya/.jrnl/default.jrnl"
+    "default": "/home/ps/.jrnl/default.jrnl"
   },
   "tagsymbols": "@"
 }
