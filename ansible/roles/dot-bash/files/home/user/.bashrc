@@ -13,7 +13,9 @@ alias c='clear'
 alias g='git'
 alias j='jrnl'
 alias s='ssh'
+
 alias t='task'
+alias to='taskopen'
 
 export EDITOR='/usr/bin/vim'
 export GREP_COLOR='1;33'
@@ -26,6 +28,7 @@ export PATH="$HOME/bin:$PATH"
 export TERM='xterm-256color'
 
 export PATH="/opt/hub/bin:$PATH"
+export PATH="/opt/taskopen/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 
 #
