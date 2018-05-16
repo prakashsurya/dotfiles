@@ -13,7 +13,7 @@ alias c='clear'
 alias g='git'
 alias j='jrnl'
 alias s='ssh'
-alias t='todo-txt'
+alias t='task'
 
 export EDITOR='/usr/bin/vim'
 export GREP_COLOR='1;33'
