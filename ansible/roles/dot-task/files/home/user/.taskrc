@@ -13,6 +13,18 @@
 data.location=~/.task
 
 #
+# Configuration required for integration with Inthe.AM, such that I can
+# sync with a centralized server via "task sync". For more information,
+# please see: https://inthe.am/getting-started
+#
+taskd.certificate=~/.task/inthe.am/private.certificate.pem
+taskd.key=~/.task/inthe.am/private.key.pem
+taskd.ca=~/.task/inthe.am/ca.cert.pem
+taskd.server=taskwarrior.inthe.am:53589
+taskd.credentials=inthe_am/med4c98a31281d490e/c4913fd0-732c-4e51-88f0-5777b6756dfa
+taskd.trust=ignore hostname
+
+#
 # The following customizations are aimed at configuring the various
 # reports to show a truncated description along annotation count, rather
 # than the full desctiption and the actual annoations when displaying
