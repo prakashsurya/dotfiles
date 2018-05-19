@@ -1,0 +1,19 @@
+[general]
+targets = github, gmail
+annotation_links = True
+inline_links = False
+merge_tags = False
+
+[github]
+service = github
+github.login = prakashsurya
+github.password = @oracle:eval:gopass devel/github.com/prakashsurya
+github.username = prakashsurya
+github.description_template = GitHub: {{githubrepo}} {{githubtitle}}
+github.project_template =
+
+[gmail]
+service = gmail
+gmail.query = in:inbox is:starred
+gmail.login_name = prakash.surya@delphix.com
+gmail.description_template = Gmail: {{gmailsubject}}
