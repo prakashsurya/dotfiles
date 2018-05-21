@@ -13,6 +13,23 @@
 data.location=~/.task
 
 #
+# By default, the L priority is weighted above tasks with no priority at
+# all. This change is to modify this behavior, such that L tasks are
+# weighted lower than tasks without a priority. This allows tasks using
+# the default priority (which is no priority at all) to be "demoted"
+# using the L priority.
+#
+# Additionally, the M and H priority coefficients are listed here, but
+# these values are unchanged from the default values. They're included
+# here simply to be explicit about all of the priority coefficients, in
+# case the default values ever change.
+#
+urgency.uda.priority.H.coefficient=6.0
+urgency.uda.priority.M.coefficient=3.9
+urgency.uda.priority..coefficient=1.8
+urgency.uda.priority.L.coefficient=0
+
+#
 # Configuration required for integration with Inthe.AM, such that I can
 # sync with a centralized server via "task sync". For more information,
 # please see: https://inthe.am/getting-started
