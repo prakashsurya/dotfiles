@@ -30,6 +30,24 @@ urgency.uda.priority..coefficient=1.8
 urgency.uda.priority.L.coefficient=0
 
 #
+# We're not using the default urgency coefficient for blocking tasks
+# because that will sometimes bump the urgency for these tasks above
+# tasks that are due today, or overdue. I'd rather complete overdue
+# tasks first, before working on tasks that are blocking, but not yet
+# due or overdue.
+#
+# Likewise, since we're not bumping up the urgency of blocking tasks, we
+# also don't want to bump down the urgency of blocked tasks.
+#
+# Finally, we want the blocking tasks to inherit the urgency of the
+# tasks they're blocking. This way, tasks that are blocking a high
+# urgency tasks, will also inherit that high urgency.
+#
+urgency.blocking.coefficient=0.0
+urgency.blocked.coefficient=0.0
+urgency.inherit=1
+
+#
 # Configuration required for integration with Inthe.AM, such that I can
 # sync with a centralized server via "task sync". For more information,
 # please see: https://inthe.am/getting-started
