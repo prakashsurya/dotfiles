@@ -10,7 +10,7 @@ TASKBIN='task'
 NOTES_FOLDER="$HOME/.task/notes/"
 
 # Preferred extension for tasknotes
-NOTES_EXT=".txt"
+NOTES_EXT=".md"
 
 # Path to notes file. UUID will be replaced with the actual uuid of
 # the task. If NOTES_CMD
