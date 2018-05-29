@@ -5,3 +5,10 @@
     dest: "{{ ansible_env.HOME }}/"
     owner: "{{ ansible_env.USER }}"
     mode: 0644
+
+- name: configure executable mode for hooks
+  file:
+    path: "{{ ansible_env.HOME }}/.task/hooks/{{ item }}"
+    mode: 0755
+  with_items:
+    - on-modify.timewarrior
