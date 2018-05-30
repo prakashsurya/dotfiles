@@ -37,6 +37,14 @@ set textwidth=72
 set wrap
 set wrapscan
 
+let mapleader=","
+
+"
+" Configure the "vim-markdown-preview" plugin to use GitHub's API to
+" generate the preview; this requires a network connection.
+"
+let vim_markdown_preview_github=1
+
 "
 " Configure the "command-t" plugin to use "git ls-files" to generate its
 " list of files; this way, files in .gitignore are ignored.
@@ -44,8 +52,6 @@ set wrapscan
 " See also: https://github.com/wincent/command-t/blob/master/doc/command-t.txt
 "
 let g:CommandTFileScanner="git"
-
-let mapleader=","
 
 "
 " Easy execution of Vimux commands, for running shell commands and
