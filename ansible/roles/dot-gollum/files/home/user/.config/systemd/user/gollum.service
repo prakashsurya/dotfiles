@@ -1,0 +1,10 @@
+[Unit]
+Description=Personal Wiki for Vim
+
+[Service]
+Environment="DISPLAY=:0"
+ExecStart=/usr/local/bin/gollum --show-all ~/vimwiki
+Type=simple
+
+[Install]
+WantedBy=default.target
