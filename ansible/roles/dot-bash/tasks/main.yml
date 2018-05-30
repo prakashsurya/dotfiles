@@ -24,6 +24,12 @@
     dest: "{{ ansible_env.HOME }}/.bashrc.d/liquidprompt"
     validate_certs: no
 
+- name: install z file
+  get_url:
+    url: "https://raw.githubusercontent.com/rupa/z/master/z.sh"
+    dest: "{{ ansible_env.HOME }}/.bashrc.d/z.bash"
+    validate_certs: no
+
 - name: install pyenv
   git:
     repo: "git://github.com/pyenv/pyenv.git"
