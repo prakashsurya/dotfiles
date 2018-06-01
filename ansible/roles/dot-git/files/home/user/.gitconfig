@@ -4,6 +4,8 @@
 [core]
 	editor = vim
 	pager = "diff-highlight | less --tabs=4 -RFX"
+[log]
+	follow = true
 [merge]
 	tool = vimdiff
 	conflictstyle = diff3
