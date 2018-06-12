@@ -54,6 +54,14 @@ let vim_markdown_preview_github=1
 let g:CommandTFileScanner="git"
 
 "
+" Change the key used to trigger the "command-t" plugin from "t" to "f",
+" since "t" is also used by the "taskwiki" plugin. The character "f" was
+" chosen since it's in the home row, and can be thought to mean "find"
+" and/or "file" (the "command-t" plugin is used to find/open files).
+"
+nmap <silent> <Leader>f <Plug>(CommandT)
+
+"
 " Configure the "vimwiki" plugin to use Markdown syntax and files.
 "
 let g:vimwiki_list = [{'syntax': 'markdown', 'ext': '.md'}]
