@@ -48,6 +48,14 @@ urgency.blocked.coefficient=0.0
 urgency.inherit=1
 
 #
+# To more effectively enable Taskwarrior to be used to collect "inbox"
+# items, we leverage a special "+in" tag and configure a new report to
+# make it easy to view these tasks by running "task in".
+#
+report.in.columns=id,description.truncated_count
+report.in.filter=status:pending (+in) or status:waiting (+in)
+
+#
 # Configuration required for integration with Inthe.AM, such that I can
 # sync with a centralized server via "task sync". For more information,
 # please see: https://inthe.am/getting-started

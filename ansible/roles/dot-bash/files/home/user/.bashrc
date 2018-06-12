@@ -16,6 +16,7 @@ alias s='ssh'
 
 alias t='task'
 alias to='taskopen'
+alias in='task add +in wait:+3d'
 
 export EDITOR='/usr/bin/vim'
 export GREP_COLOR='1;33'
