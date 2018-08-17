@@ -67,12 +67,6 @@ nmap <silent> <Leader>f <Plug>(CommandT)
 let g:vimwiki_list = [{'syntax': 'markdown', 'ext': '.md'}]
 
 "
-" Since we're using Markdown syntax for the "vimwiki" plugin, we also
-" have to update the "taskwiki" plugin to also use Markdown syntax.
-"
-let g:taskwiki_syntax = 'markdown'
-
-"
 " Easy execution of Vimux commands, for running shell commands and
 " utilities inside tmux panes.
 "

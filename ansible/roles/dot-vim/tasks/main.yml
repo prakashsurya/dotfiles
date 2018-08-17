@@ -50,41 +50,28 @@
   git:
     repo: '{{ item.repo }}'
     dest: '{{ ansible_env.HOME }}/.vim/bundle/{{ item.dest }}'
-    version: '{{ item.version }}'
     update: yes
     depth: 1
     accept_hostkey: yes
   with_items:
     - repo: 'git://github.com/vim-airline/vim-airline.git'
       dest: 'vim-airline'
-      version: master
     - repo: 'git://github.com/vim-airline/vim-airline-themes.git'
       dest: 'vim-airline-themes'
-      version: master
     - repo: 'git://github.com/altercation/vim-colors-solarized.git'
       dest: 'vim-colors-solarized'
-      version: master
     - repo: 'git://github.com/airblade/vim-gitgutter.git'
       dest: 'vim-gitgutter'
-      version: master
     - repo: 'git://github.com/wincent/command-t.git'
       dest: 'command-t'
-      version: master
     - repo: 'git://github.com/christoomey/vim-tmux-navigator.git'
       dest: 'vim-tmux-navigator'
-      version: master
     - repo: 'git://github.com/benmills/vimux.git'
       dest: 'vimux'
-      version: master
     - repo: 'git://github.com/vimwiki/vimwiki.git'
       dest: 'vimwiki'
-      version: master
     - repo: 'git://github.com/JamshedVesuna/vim-markdown-preview.git'
       dest: 'vim-markdown-preview'
-      version: master
-    - repo: 'git://github.com/DancingQuanta/taskwiki.git'
-      dest: 'taskwiki'
-      version: extra-syntaxes
 
 - name: compile command-t extention
   shell: "ruby extconf.rb && make"
