@@ -8,6 +8,7 @@ set nocompatible
 execute pathogen#infect()
 syntax on
 filetype plugin indent on
+let g:solarized_termcolors=256
 colorscheme solarized
 
 "
