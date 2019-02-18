@@ -1,7 +1,0 @@
----
-- name: copy x11 configuration files
-  copy:
-    src: "home/user/"
-    dest: "{{ ansible_env.HOME }}/"
-    owner: "{{ ansible_env.USER }}"
-    mode: 0644
