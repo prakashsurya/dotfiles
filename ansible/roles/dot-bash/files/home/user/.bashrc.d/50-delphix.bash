@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# To force Eclipse to use gtk2
-export SWT_GTK3=0
-
 #
 # Add Delphix specific paths if they exist:
 #
