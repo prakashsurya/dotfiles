@@ -1,8 +1,33 @@
-#!/bin/bash -eux
+#!/bin/bash -eu
+
+function die() {
+	echo "ERROR: $@" >&2
+	exit 2
+}
 
 if [[ "$1" == "update" ]]; then
+	[[ -n "$DELPHIX_OTP" ]] || die "DELPHIX_OTP variable is missing"
+
+	NEW=$(oathtool --totp -b "$DELPHIX_OTP")
+	[[ -z "$NEW" ]] && die "failed to get new OTP token"
+
+	sudo sed -i "s/^\(password = [[:alnum:]]\{9\}\).*$/\1$NEW/" \
+		/opt/openfortivpn/etc/openfortivpn/config ||
+		die "failed to update VPN with new OTP token"
+
+	exit 0
+fi
+
+if [[ "$1" == "otp" ]]; then
+	[[ -n "$DELPHIX_OTP" ]] || die "DELPHIX_OTP variable is missing"
+	oathtool --totp -b "$DELPHIX_OTP"
+	exit 0
+fi
+
+if [[ "$1" == "edit" ]]; then
 	sudo vi /opt/openfortivpn/etc/openfortivpn/config
 	exit 0
 fi
 
 sudo systemctl $1 openfortivpn.service
+sudo journalctl -f -u openfortivpn.service
