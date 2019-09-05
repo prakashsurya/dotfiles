@@ -63,11 +63,6 @@ let g:CommandTFileScanner="git"
 nmap <silent> <Leader>f <Plug>(CommandT)
 
 "
-" Configure the "vimwiki" plugin to use Markdown syntax and files.
-"
-let g:vimwiki_list = [{'syntax': 'markdown', 'ext': '.md'}]
-
-"
 " Easy execution of Vimux commands, for running shell commands and
 " utilities inside tmux panes.
 "
