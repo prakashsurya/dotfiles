@@ -1,0 +1,31 @@
+fish_add_path --prepend $HOME/.local/bin
+fish_add_path --append /opt/nvim-linux-x86_64/bin
+fish_add_path --append /opt/delphix/server/bin
+fish_add_path --append $HOME/.local/share/git-utils/bin
+
+# Required for the dc command
+set -gx DLPX_DC_API_HOST "{{ .dcApiHost }}"
+set -gx DLPX_DC_INSTANCE_PUB_KEY "$HOME/.ssh/id_ed25519.pub"
+set -gx DLPX_DC_USER "{{ .ldapUser }}"
+
+set -gx GITHUB_TOKEN "{{ .githubToken }}"
+
+# pyenv — manages multiple Python versions. Required because some tools pin
+# specific versions (e.g. git-utils requires Python 3.10.7).
+set -gx PYENV_ROOT $HOME/.pyenv
+fish_add_path --prepend $PYENV_ROOT/bin
+if command -q pyenv
+    pyenv init - fish | source
+end
+
+# Required for AWS role assumption via the granted tool, necessary for access to
+# the support tools server.
+# See: https://perforce.atlassian.net/wiki/spaces/DLXSUP/pages/1558225912/support-tools+server+access+instructions
+alias assume="source /usr/local/bin/assume.fish"
+
+if status is-interactive
+    alias c="clear"
+    alias g="git"
+    alias s="ssh"
+    alias vim="nvim"
+end

@@ -1,0 +1,17 @@
+# Required for access to the support tools server via AWS SSM.
+# See: https://perforce.atlassian.net/wiki/spaces/DLXSUP/pages/1558225912/support-tools+server+access+instructions
+Host i-* mi-*
+    ProxyCommand sh -c "aws ssm start-session --target %h --document-name AWS-StartSSHSession --parameters 'portNumber=%p'"
+    StrictHostKeyChecking no
+    UserKnownHostsFile /dev/null
+    ServerAliveInterval 240
+
+# Ephemeral Delphix lab/datacenter VMs — host keys change frequently as VMs are
+# rotated, so host key checking is disabled to avoid stale known_hosts entries.
+Host *.dcenter.delphix.com *.dcol1.delphix.com *.dcol2.delphix.com *.dlpxdc.co
+    StrictHostKeyChecking no
+    UserKnownHostsFile /dev/null
+
+# Explicit user so "ssh dlpxdc.co" works regardless of the local username.
+Host dlpxdc.co
+    User {{ .ldapUser }}

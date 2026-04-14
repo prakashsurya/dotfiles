@@ -1,0 +1,50 @@
+[user]
+	name = Prakash Surya
+	email = {{ .email }}
+[core]
+	editor = nvim
+[log]
+	follow = true
+[merge]
+	tool = nvimdiff
+	conflictstyle = diff3
+[color]
+	ui = true
+[diff]
+	indentHeuristic = on
+[alias]
+	b = branch -v
+	c = commit
+	d = diff
+	f = fetch
+	g = grep
+	l = log --decorate
+	p = !git --no-pager diff --no-color
+	r = remote -v
+	s = status
+
+	ap = add --patch
+	ca = commit --amend
+	co = checkout
+	cp = cherry-pick
+	dc = diff --cached
+	lg = log --decorate --oneline --graph
+	ls = log --decorate --pretty=short --stat
+	mt = mergetool
+	pc = !git --no-pager diff --cached --no-color
+	rs = reset
+
+	rba = rebase --abort
+	rbc = rebase --continue
+	rbi = rebase --interactive
+[dlpx]
+	email = {{ .email }}
+	ldap-user = {{ .ldapUser }}
+	appliance-user = delphix
+	onelogin-user = {{ .oneloginUser }}
+	# Jenkins tokens are not stored here — add manually:
+	# git config --global dlpx.jenkins-token-<name> <token>
+[rerere]
+	enabled = true
+[github]
+	user = {{ .githubUser }}

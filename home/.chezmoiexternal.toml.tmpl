@@ -1,0 +1,23 @@
+[".config/nvim"]
+    type          = "git-repo"
+    url           = "https://github.com/nvim-lua/kickstart.nvim.git"
+    refreshPeriod = "168h"
+
+[".tmux/plugins/tmux-pain-control"]
+    type          = "git-repo"
+    url           = "https://github.com/tmux-plugins/tmux-pain-control"
+    refreshPeriod = "168h"
+
+[".tmux/plugins/tmux-sensible"]
+    type          = "git-repo"
+    url           = "https://github.com/tmux-plugins/tmux-sensible"
+    refreshPeriod = "168h"
+
+{{ if stat (joinPath .chezmoi.homeDir ".ssh" "id_ed25519") -}}
+# Private repo — only cloned once an SSH key exists.
+# After generating your key and adding it to GitHub, re-run: chezmoi apply
+[".local/share/git-utils"]
+    type          = "git-repo"
+    url           = "git@github.com:delphix/git-utils.git"
+    refreshPeriod = "168h"
+{{ end -}}

@@ -1,0 +1,13 @@
+[data]
+    email                   = "prakash.surya@perforce.com"
+    ldapUser                = "psurya"
+    oneloginUser            = "prakash.surya"
+    oneloginEmail           = "prakash.surya@delphix.com"
+    githubUser              = "prakashsurya"
+    dcApiHost               = "sknncxtzxf.execute-api.us-west-2.amazonaws.com"
+    githubToken             = {{ promptStringOnce . "githubToken"             "GitHub personal access token"                                          | quote }}
+    oneloginClientId        = {{ promptStringOnce . "oneloginClientId"        "OneLogin client_id"                                                    | quote }}
+    oneloginClientSecret    = {{ promptStringOnce . "oneloginClientSecret"    "OneLogin client_secret"                                                | quote }}
+    oneloginRoleArn         = {{ promptStringOnce . "oneloginRoleArn"         "OneLogin role ARN (see role_arn in ~/.onelogin-aws.config)"            | quote }}
+    oneloginDefaultAwsAppId = {{ promptStringOnce . "oneloginDefaultAwsAppId" "OneLogin AWS app ID, [defaults] section"                              | quote }}
+    oneloginAwsAppId        = {{ promptStringOnce . "oneloginAwsAppId"        "OneLogin AWS app ID, [master/eng-secret-user] section"                | quote }}

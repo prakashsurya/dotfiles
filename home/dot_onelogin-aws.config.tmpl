@@ -1,0 +1,14 @@
+[defaults]
+username                  = {{ .oneloginEmail }}
+base_uri                  = https://api.us.onelogin.com/
+client_id                 = {{ .oneloginClientId }}
+client_secret             = {{ .oneloginClientSecret }}
+subdomain                 = delphix
+auto_determine_ip_address = yes
+aws_app_id                = {{ .oneloginDefaultAwsAppId }}
+duration_seconds          = 43200
+
+[master/eng-secret-user]
+role_arn   = {{ .oneloginRoleArn }}
+profile    = master/eng-secret-user
+aws_app_id = {{ .oneloginAwsAppId }}

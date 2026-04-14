@@ -1,0 +1,23 @@
+[linux]
+apt = [
+    "fish",
+    "tmux",
+    "git",
+    "curl",
+    "make",
+    "unzip",
+    "ripgrep",
+    "python3",
+    "python3-pip",
+    # pyenv build dependencies
+    "build-essential",
+    "libssl-dev",
+    "zlib1g-dev",
+    "libbz2-dev",
+    "libreadline-dev",
+    "libsqlite3-dev",
+    "libncursesw5-dev",
+    "xz-utils",
+    "libffi-dev",
+    "liblzma-dev",
+]

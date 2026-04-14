@@ -1,0 +1,9 @@
+#!/bin/bash
+# chezmoi:template:left-delimiter="# [[" right-delimiter="]]"
+# Managed by chezmoi — regenerate with: chezmoi apply
+# packages: # [[ .linux.apt | toJson ]]
+set -euo pipefail
+echo "Installing apt packages..."
+sudo apt-get update -qq
+sudo apt-get install -y # [[ .linux.apt | join " " ]]
+echo "Done."

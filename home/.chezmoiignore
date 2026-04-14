@@ -1,0 +1,2 @@
+# Ignore patterns for files that should not be deployed to $HOME.
+# See: https://www.chezmoi.io/reference/special-files/chezmoiignore/
