@@ -68,13 +68,26 @@ These are intentionally not automated:
    The second `chezmoi apply` detects `~/.ssh/id_ed25519` and automatically
    clones the private `delphix/git-utils` repo, then pins Python 3.10.7 via pyenv.
 2. **Set fish as default shell**: `chsh -s $(which fish)`
-3. **Neovim plugins**: Launch `nvim` — kickstart.nvim uses lazy.nvim which auto-installs plugins on first run (the nvim config is pulled unmodified from upstream via chezmoiexternal)
-4. **Support tools server access**: The `support-tools-ssh` script is not managed by
+3. **Disable SSH password login**: Two files need updating — the main config and the
+   Delphix-specific drop-in which re-enables keyboard-interactive auth:
+   ```bash
+   sudo sed -i 's/^#\?PasswordAuthentication.*/PasswordAuthentication no/' /etc/ssh/sshd_config
+   sudo sed -i -e 's/^#\?ChallengeResponseAuthentication.*/ChallengeResponseAuthentication no/' \
+               -e 's/^#\?KbdInteractiveAuthentication.*/KbdInteractiveAuthentication no/' \
+               /etc/ssh/sshd_config.d/9-delphix.conf
+   sudo systemctl restart ssh
+   ```
+   Ensure your SSH key is in `~/.ssh/authorized_keys` before doing this. Verify with:
+   ```bash
+   sudo sshd -T | grep -E 'passwordauthentication|kbdinteractiveauthentication'
+   ```
+4. **Neovim plugins**: Launch `nvim` — kickstart.nvim uses lazy.nvim which auto-installs plugins on first run (the nvim config is pulled unmodified from upstream via chezmoiexternal)
+5. **Support tools server access**: The `support-tools-ssh` script is not managed by
    these dotfiles. Follow the internal setup guide to install it and its dependencies
    (granted, AWS SSM plugin, assume profile):
    [support-tools server access instructions](https://perforce.atlassian.net/wiki/spaces/DLXSUP/pages/1558225912/support-tools+server+access+instructions)
 
-5. **Jenkins tokens**: Add manually after setup:
+6. **Jenkins tokens**: Add manually after setup:
    ```bash
    git config --global dlpx.jenkins-token-selfservice-jenkins-delphix-com <token>
    git config --global dlpx.jenkins-token-masking-jenkins-delphix-com <token>
