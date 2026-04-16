@@ -1,0 +1,47 @@
+{{ if stat (joinPath .chezmoi.homeDir ".ssh" "id_ed25519") -}}
+#!/bin/bash
+# See: https://github.com/delphix-it/granted-registry
+# Private registry — only runs once an SSH key exists.
+# After generating your key and adding it to GitHub, re-run: chezmoi apply
+set -euo pipefail
+
+GRANTED_VERSION="0.7.1"
+
+if command -v granted &>/dev/null; then
+    echo "Granted already installed, skipping."
+else
+    echo "Installing Granted v${GRANTED_VERSION}..."
+    GRANTED_TMPDIR=$(mktemp -d)
+    trap 'rm -rf "${GRANTED_TMPDIR}"' EXIT
+
+    case "$(uname -m)" in
+        x86_64)  ARCH="x86_64" ;;
+        aarch64) ARCH="arm64" ;;
+        *) echo "Unsupported architecture: $(uname -m)"; exit 1 ;;
+    esac
+
+    curl -fsSL "https://releases.commonfate.io/granted/v${GRANTED_VERSION}/granted_${GRANTED_VERSION}_linux_${ARCH}.tar.gz" \
+        -o "${GRANTED_TMPDIR}/granted.tar.gz"
+    tar -zxf "${GRANTED_TMPDIR}/granted.tar.gz" -C "${GRANTED_TMPDIR}/"
+    sudo install -m 0755 "${GRANTED_TMPDIR}/granted" /usr/local/bin/granted
+    # assumego is a helper binary invoked by granted at runtime
+    if [ -f "${GRANTED_TMPDIR}/assumego" ]; then
+        sudo install -m 0755 "${GRANTED_TMPDIR}/assumego" /usr/local/bin/assumego
+    fi
+
+    echo "Granted v${GRANTED_VERSION} installed to /usr/local/bin/granted"
+fi
+
+if granted registry list 2>/dev/null | grep -qx "ent-cs"; then
+    echo "Granted registry ent-cs already added, skipping."
+else
+    echo "Adding Granted registry ent-cs..."
+    mkdir -p "${HOME}/.aws" && touch "${HOME}/.aws/config"
+    granted registry add \
+        -name ent-cs \
+        -u git@github.com:delphix-it/granted-registry.git \
+        -p /ent-cs \
+        --prefix-all-profiles
+    echo "Granted registry ent-cs added."
+fi
+{{ end -}}
