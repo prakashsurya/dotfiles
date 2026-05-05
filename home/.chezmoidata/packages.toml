@@ -6,6 +6,7 @@ apt = [
     "curl",
     "make",
     "unzip",
+    "nfs-common",
     "ripgrep",
     "python3",
     "python3-pip",
