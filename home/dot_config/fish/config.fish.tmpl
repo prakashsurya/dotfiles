@@ -10,6 +10,8 @@ set -gx DLPX_DC_USER "{{ .ldapUser }}"
 
 set -gx GITHUB_TOKEN "{{ .githubToken }}"
 
+set -gx LLM_WIKI_DIR $HOME/llm-wiki
+
 # pyenv — manages multiple Python versions. Required because some tools pin
 # specific versions (e.g. git-utils requires Python 3.10.7).
 set -gx PYENV_ROOT $HOME/.pyenv
