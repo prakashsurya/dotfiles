@@ -1,3 +1,8 @@
+# Host-specific and other local-only entries live in ~/.ssh/config.local
+# (untracked). Included at the top so local overrides win — SSH applies the
+# first value seen for each option per host. Missing file is not an error.
+Include ~/.ssh/config.local
+
 # Required for access to the support tools server via AWS SSM.
 # See: https://perforce.atlassian.net/wiki/spaces/DLXSUP/pages/1558225912/support-tools+server+access+instructions
 Host i-* mi-*
@@ -14,4 +19,10 @@ Host *.dcenter.delphix.com *.dcol1.delphix.com *.dcol2.delphix.com *.dlpxdc.co
 
 # Explicit user so "ssh dlpxdc.co" works regardless of the local username.
 Host dlpxdc.co
+    User {{ .ldapUser }}
+
+# Same for the dcol1/dcol2 DCoL hosts — JenkinsManager configure SSHes to
+# these as part of dev-controller setup and defaults to the OS user (delphix)
+# without this override.
+Host dcol1.delphix.com dcol2.delphix.com
     User {{ .ldapUser }}

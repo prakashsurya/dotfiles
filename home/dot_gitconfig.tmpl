@@ -48,3 +48,9 @@
 	enabled = true
 [github]
 	user = {{ .githubUser }}
+
+# Local-only overrides (jenkins tokens, host-specific values, secrets) go in
+# ~/.gitconfig.local — keeps them out of this tracked template. Placed last so
+# later values win; missing file is not an error.
+[include]
+	path = ~/.gitconfig.local
