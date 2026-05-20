@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-GIT_UTILS_DIR="$HOME/.local/share/git-utils"
+GIT_UTILS_DIR="$HOME/src/git-utils"
 PYTHON_VERSION="3.10.7"
 PYENV="$HOME/.pyenv/bin/pyenv"
 
