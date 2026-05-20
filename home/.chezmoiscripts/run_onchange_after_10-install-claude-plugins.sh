@@ -30,4 +30,14 @@ for plugin in "${plugins[@]}"; do
     claude plugin install "${plugin}@${MARKETPLACE}" --scope user
 done
 
+# Anthropic's official marketplace — cherry-pick individual plugins rather
+# than installing everything in it.
+OFFICIAL_MARKETPLACE="claude-plugins-official"
+claude plugin marketplace add anthropics/claude-plugins-official
+
+for plugin in superpowers; do
+    echo "Installing ${plugin}@${OFFICIAL_MARKETPLACE}..."
+    claude plugin install "${plugin}@${OFFICIAL_MARKETPLACE}" --scope user
+done
+
 echo "Done."
