@@ -1,2 +1,11 @@
 # Delphix knowledge wiki
 A personal Delphix "second brain" lives at `{{ .chezmoi.homeDir }}/llm-wiki`. Before non-trivial Delphix work, read its `INDEX.md` — a domain map of prior RCAs, build/CI notes, and tooling — and pull any relevant context. (Optional: `/llm-wiki:query` answers questions from it when the plugin is installed.)
+
+# Durable memory
+Memory in `~/.claude/` is a cache — it dies with this machine. Anything important must also live in git: the wiki (`{{ .chezmoi.homeDir }}/llm-wiki`) for Delphix knowledge, a skill for corrections that should change behavior, this file for cross-cutting working style, or `~/.claude/conventions/<repo>.md` for repo-specific conventions.
+
+When saving a memory that captures durable knowledge, write the durable copy first, then include a marker line in the memory body:
+
+`**Durable:** [title](~/llm-wiki/<bucket>/<page>.md)`
+
+`/llm-wiki:ingest-claude-memory` sweeps for memories missing this marker.
