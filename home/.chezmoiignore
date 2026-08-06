@@ -20,3 +20,4 @@
 .claude/tasks/
 .claude/plugins/
 .claude/governance-logs/
+.claude/voice/
