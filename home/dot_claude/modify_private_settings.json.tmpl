@@ -8,6 +8,20 @@
 # Reads the current file on stdin, writes the desired file to stdout.
 # Owns only the keys in MANAGED below; everything else passes through,
 # notably enabledPlugins (owned by run_onchange_after_10-install-claude-plugins.sh).
+#
+# "Owns" means add/update only, via jq's recursive `*` merge (see below) —
+# it never deletes. This applies at every nesting level, so a nested map
+# like extraKnownMarketplaces or statusLine only ever gains/overwrites keys
+# here, never loses one. If a future edit retires an entry by removing it
+# from MANAGED, already-provisioned machines keep the stale entry forever;
+# `chezmoi diff`/`verify` will report clean and hide the staleness. Retiring
+# something requires an explicit removal step elsewhere, not just deleting
+# it from MANAGED.
+#
+# Malformed JSON on stdin is not special-cased: jq's parse failure exits
+# non-zero, `set -euo pipefail` propagates that as this script's exit
+# status, and chezmoi aborts without touching the destination file — no
+# partial write, no corruption.
 set -euo pipefail
 
 if ! command -v jq >/dev/null 2>&1; then
