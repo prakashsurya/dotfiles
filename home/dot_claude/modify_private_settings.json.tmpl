@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+# chezmoi modify_ script for ~/.claude/settings.json.
+#
+# Claude Code writes this file too: `claude plugin install` mutates
+# enabledPlugins, `/config` mutates theme and model. So chezmoi must MERGE
+# rather than manage — a managed file would revert those on every apply.
+#
+# Reads the current file on stdin, writes the desired file to stdout.
+# Owns only the keys in MANAGED below; everything else passes through,
+# notably enabledPlugins (owned by run_onchange_after_10-install-claude-plugins.sh).
+set -euo pipefail
+
+if ! command -v jq >/dev/null 2>&1; then
+    echo "modify_settings.json: jq is required but not installed" >&2
+    exit 1
+fi
+
+MANAGED='{
+  "effortLevel": "xhigh",
+  "tui": "fullscreen",
+  "theme": "dark",
+  "model": "opus",
+  "skipDangerousModePermissionPrompt": true,
+  "statusLine": {
+    "type": "command",
+    "command": "ccstatusline",
+    "padding": 0,
+    "refreshInterval": 10
+  },
+  "extraKnownMarketplaces": {
+    "prakashsurya-claude-plugins": {
+      "source": { "source": "git", "url": "git@github.com:prakashsurya/claude-plugins.git" },
+      "autoUpdate": true
+    },
+    "delphix-platform-team-claude-plugins": {
+      "source": { "source": "github", "repo": "delphix/platform-team-claude-plugins" },
+      "autoUpdate": true
+    },
+    "claude-plugins-official": {
+      "source": { "source": "github", "repo": "anthropics/claude-plugins-official" }
+    },
+    "sec-governance-plugin": {
+      "source": { "source": "github", "repo": "PerforceAI/sec-claude-governance" }
+    }
+  }
+}'
+
+current=$(cat)
+
+# Fresh machine: chezmoi passes empty stdin when the target does not exist.
+if [ -z "${current//[[:space:]]/}" ]; then
+    current='{}'
+fi
+
+# `*` is jq's recursive merge; the right operand wins on conflicts, so
+# MANAGED overrides while unmanaged keys survive.
+printf '%s' "$current" | jq --argjson managed "$MANAGED" '. * $managed'
