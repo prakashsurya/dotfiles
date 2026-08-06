@@ -2,12 +2,19 @@
 # chezmoi modify_ script for ~/.claude/settings.json.
 #
 # Claude Code writes this file too: `claude plugin install` mutates
-# enabledPlugins, `/config` mutates theme and model. So chezmoi must MERGE
-# rather than manage — a managed file would revert those on every apply.
+# enabledPlugins, `/config` mutates theme and model. So chezmoi MERGES here
+# rather than managing the whole file.
+#
+# Be precise about what that buys, because it is easy to overstate: theme and
+# model are themselves in MANAGED below, so a `/config` change to either IS
+# reverted on the next apply. That pinning is deliberate. What merging
+# actually protects is every key dotfiles does NOT own — enabledPlugins
+# (owned by run_onchange_after_10-install-claude-plugins.sh) and whatever a
+# future Claude Code version adds. A plain managed file would delete those
+# outright and sit permanently dirty in `chezmoi status`.
 #
 # Reads the current file on stdin, writes the desired file to stdout.
-# Owns only the keys in MANAGED below; everything else passes through,
-# notably enabledPlugins (owned by run_onchange_after_10-install-claude-plugins.sh).
+# Owns only the keys in MANAGED below; everything else passes through.
 #
 # "Owns" means add/update only, via jq's recursive `*` merge (see below) —
 # it never deletes. This applies at every nesting level, so a nested map
@@ -24,8 +31,14 @@
 # partial write, no corruption.
 set -euo pipefail
 
+# jq is declared in .chezmoidata/packages.toml and installed by
+# run_onchange_before_01-install-packages.sh, which runs before this script.
+# The guard covers a machine where that install was skipped or failed: this
+# runs in chezmoi's file phase, ahead of every run_*_after_* script, so an
+# unguarded jq failure here aborts `chezmoi init --apply` before the Claude
+# CLI and plugins are ever installed.
 if ! command -v jq >/dev/null 2>&1; then
-    echo "modify_settings.json: jq is required but not installed" >&2
+    echo "modify_private_settings.json: jq is required but not installed" >&2
     exit 1
 fi
 

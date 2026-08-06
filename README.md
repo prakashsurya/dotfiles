@@ -65,8 +65,11 @@ These are intentionally not automated:
    # Add the public key to GitHub (Settings → SSH keys) and authorized_keys
    chezmoi apply
    ```
-   The second `chezmoi apply` detects `~/.ssh/id_ed25519` and automatically
-   clones the private `delphix/git-utils` repo, then pins Python 3.10.7 via pyenv.
+   The second `chezmoi apply` detects `~/.ssh/id_ed25519` and, gated on that
+   key, does the private-repo work: clones `delphix/git-utils` (then pins
+   Python 3.10.7 via pyenv), clones `prakashsurya/llm-wiki` to `~/llm-wiki`,
+   and installs the Claude plugins from the private marketplaces. None of
+   those happen on the first apply.
 2. **Set fish as default shell**: `chsh -s $(which fish)`
 3. **Disable SSH password login**: Two files need updating — the main config and the
    Delphix-specific drop-in which re-enables keyboard-interactive auth:
@@ -103,7 +106,7 @@ These are intentionally not automated:
   and the fish config hardcodes the corresponding PATH entry. ARM is not supported.
 - **git-utils Python version**: The `07-pin-git-utils-python` chezmoi script pins
   Python 3.10.7. If git-utils changes its requirement, update `PYTHON_VERSION` in
-  `home/.chezmoiscripts/run_onchange_after_07-pin-git-utils-python.sh`.
+  `home/.chezmoiscripts/run_always_after_07-pin-git-utils-python.sh`.
 
 ## Repository structure
 
@@ -115,18 +118,28 @@ dotfiles/
 └── home/
     ├── .chezmoi.toml.tmpl           # machine config (prompts on first run)
     ├── .chezmoidata/packages.toml   # apt package list
-    ├── .chezmoiexternal.toml.tmpl   # external git repos (nvim, tmux, git-utils when SSH key exists)
-    ├── .chezmoiignore               # chezmoi ignore patterns (currently empty)
+    ├── .chezmoiexternal.toml.tmpl   # external git repos (nvim, tmux; git-utils + llm-wiki when SSH key exists)
+    ├── .chezmoiignore               # never-track guard for ~/.claude runtime state and secrets
     ├── .chezmoiscripts/
     │   ├── run_onchange_before_01-install-packages.sh.tmpl
     │   ├── run_onchange_after_02-install-pyenv.sh
     │   ├── run_onchange_after_04-install-neovim.sh
     │   ├── run_onchange_after_05-install-gh.sh
     │   ├── run_onchange_after_06-install-claude.sh
-    │   └── run_onchange_after_07-pin-git-utils-python.sh
+    │   ├── run_onchange_after_10-install-claude-plugins.sh
+    │   └── run_always_after_07-pin-git-utils-python.sh
     ├── dot_gitconfig.tmpl           # → ~/.gitconfig
     ├── dot_tmux.conf                # → ~/.tmux.conf
     ├── dot_onelogin-aws.config.tmpl # → ~/.onelogin-aws.config
     ├── dot_config/fish/config.fish.tmpl # → ~/.config/fish/config.fish
-    └── dot_ssh/config.tmpl          # → ~/.ssh/config
+    ├── dot_ssh/config.tmpl          # → ~/.ssh/config
+    └── private_dot_claude/          # → ~/.claude  (private_ ⇒ mode 0700)
+        ├── CLAUDE.md.tmpl           # → ~/.claude/CLAUDE.md (wiki pointer + durable-memory rule)
+        ├── modify_private_settings.json # jq-merges dotfiles-owned keys into ~/.claude/settings.json
+        └── conventions/.gitkeep     # → ~/.claude/conventions/ (repo-specific working rules)
 ```
+
+`.chezmoiignore` is a defensive block, not a deployment filter: nothing in it
+is in the source tree today. It exists so a future `chezmoi add ~/.claude`
+cannot sweep credentials, session state, the voice corpus, or handoff notes
+into this repo — which is **public**.

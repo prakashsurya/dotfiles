@@ -2,10 +2,19 @@
 A personal Delphix "second brain" lives at `{{ .chezmoi.homeDir }}/llm-wiki`. Before non-trivial Delphix work, read its `INDEX.md` — a domain map of prior RCAs, build/CI notes, and tooling — and pull any relevant context. (Optional: `/llm-wiki:query` answers questions from it when the plugin is installed.)
 
 # Durable memory
-Memory in `~/.claude/` is a cache — it dies with this machine. Anything important must also live in git: the wiki (`{{ .chezmoi.homeDir }}/llm-wiki`) for Delphix knowledge, a skill for corrections that should change behavior, this file for cross-cutting working style, or `~/.claude/conventions/<repo>.md` for repo-specific conventions.
+Memory in `~/.claude/` is a cache — it dies with this machine. Anything important must also live in git. The four destinations:
 
-When saving a memory that captures durable knowledge, write the durable copy first, then include a marker line in the memory body:
+- **the wiki** (`{{ .chezmoi.homeDir }}/llm-wiki`) for Delphix knowledge
+- **a skill** for corrections that should change behavior
+- **the dotfiles source of this file** — `home/private_dot_claude/CLAUDE.md.tmpl` — for cross-cutting working style
+- **`home/private_dot_claude/conventions/<repo>.md`** in dotfiles for repo-specific conventions
 
-`**Durable:** [title](~/llm-wiki/<bucket>/<page>.md)`
+Nothing under `~/.claude/` counts as durable, **including this file**: it is rendered from that chezmoi template, so editing it in place is reverted by the next `chezmoi apply` and absent after a rebuild. Edit the dotfiles source, `git commit` and `git push` it, then `chezmoi apply`. Same for a conventions file — write it, then `chezmoi add` it, then commit and push.
+
+When saving a memory that captures durable knowledge, write the durable copy first, then include a marker line in the memory body. Wiki paths are **wiki-relative** — resolved against `$LLM_WIKI_DIR`, never hardcoded:
+
+```
+**Durable:** [title](<bucket>/<page>.md)
+```
 
 `/llm-wiki:ingest-claude-memory` sweeps for memories missing this marker.

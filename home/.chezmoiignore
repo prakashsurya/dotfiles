@@ -5,6 +5,8 @@
 # Guards against a future `chezmoi add ~/.claude` sweeping them in.
 .claude/.credentials.json
 .claude/.claude.json
+.claude/.last-cleanup
+.claude/.last-update-result.json
 .claude/history.jsonl
 .claude/policy-limits.json
 .claude/remote-settings.json
@@ -21,3 +23,6 @@
 .claude/plugins/
 .claude/governance-logs/
 .claude/voice/
+# handoffs/ are branch-scoped session notes; they carry customer/support-case
+# detail, internal hostnames and RFC1918 addresses, and this repo is PUBLIC.
+.claude/handoffs/

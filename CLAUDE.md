@@ -27,4 +27,14 @@ home/.chezmoiscripts/                      # install scripts (numbered by depend
 home/dot_config/fish/config.fish.tmpl     # fish shell config
 home/dot_gitconfig.tmpl                   # git config
 home/dot_ssh/config.tmpl                  # SSH config
+home/private_dot_claude/                   # → ~/.claude (private_ ⇒ mode 0700)
 ```
+
+- **`private_` attribute:** `private_<name>` targets mode `0700`/`0600`. Required
+  for `~/.claude` (dir) and `~/.claude/settings.json` (mode `600`) — without it
+  chezmoi targets the umask default and the first apply widens them.
+- **`modify_` scripts:** `modify_<name>` is an executable that receives the
+  target's current contents on stdin and writes the desired contents to stdout.
+  Use it when another tool co-owns the file (see
+  `home/private_dot_claude/modify_private_settings.json`). Per Hard Rule 4 it
+  takes no `.tmpl` suffix unless it contains a `{{ }}` expression.
