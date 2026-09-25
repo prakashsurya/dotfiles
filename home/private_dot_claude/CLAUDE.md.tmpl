@@ -1,20 +1,27 @@
-# Delphix knowledge wiki
-A personal Delphix "second brain" lives at `{{ .chezmoi.homeDir }}/llm-wiki`. Before non-trivial Delphix work, read its `INDEX.md` — a domain map of prior RCAs, build/CI notes, and tooling — and pull any relevant context. (Optional: `/llm-wiki:query` answers questions from it when the plugin is installed.)
+# Delphix knowledge bases
+Two corpora back Delphix work. Before anything non-trivial, read the relevant `INDEX.md` — a domain map of prior RCAs, build/CI notes, and tooling — and pull any context that applies.
+
+- **The team knowledge graph** — `delphix/knowledge-graph`, checked out at `{{ .chezmoi.homeDir }}/src/knowledge-graph` and resolved from `$KG_DIR`. Shared with the Platform Team, so it is the default home for anything a teammate could use: escalation postmortems, CI known-failures, subsystem reference. Write it with `/kg:ingest` and its siblings; `/kg:using-the-knowledge-graph` is the mechanics reference. Never hand-edit its `INDEX.md` — it is generated from each page's `abstract:`.
+- **The personal wiki** — `{{ .chezmoi.homeDir }}/llm-wiki`, resolved from `$LLM_WIKI_DIR`. A personal second brain: half-formed leads, machine-specific setup, working notes not fit to share. (Optional: `/llm-wiki:query` answers questions from it when the plugin is installed.)
+
+If a page would help a teammate, it belongs in the knowledge graph, not the wiki.
 
 # Durable memory
-Memory in `~/.claude/` is a cache — it dies with this machine. Anything important must also live in git. The four destinations:
+Memory in `~/.claude/` is a cache — it dies with this machine. Anything important must also live in git. The five destinations:
 
-- **the wiki** (`{{ .chezmoi.homeDir }}/llm-wiki`) for Delphix knowledge
+- **the knowledge graph** for Delphix knowledge worth sharing with the team
+- **the wiki** (`{{ .chezmoi.homeDir }}/llm-wiki`) for Delphix knowledge that stays personal
 - **a skill** for corrections that should change behavior
 - **the dotfiles source of this file** — `home/private_dot_claude/CLAUDE.md.tmpl` — for cross-cutting working style
 - **`home/private_dot_claude/conventions/<repo>.md`** in dotfiles for repo-specific conventions
 
 Nothing under `~/.claude/` counts as durable, **including this file**: it is rendered from that chezmoi template, so editing it in place is reverted by the next `chezmoi apply` and absent after a rebuild. Edit the dotfiles source, `git commit` and `git push` it, then `chezmoi apply`. Same for a conventions file — write it, then `chezmoi add` it, then commit and push.
 
-When saving a memory that captures durable knowledge, write the durable copy first, then include a marker line in the memory body. Wiki paths are **wiki-relative** — resolved against `$LLM_WIKI_DIR`, never hardcoded:
+When saving a memory that captures durable knowledge, write the durable copy first, then include a marker line in the memory body. Page paths are **repo-relative** — resolved against `$KG_DIR` or `$LLM_WIKI_DIR`, never hardcoded:
 
 ```
+**Durable:** kg [title](<bucket>/<page>.md)
 **Durable:** [title](<bucket>/<page>.md)
 ```
 
-`/llm-wiki:ingest-claude-memory` sweeps for memories missing this marker.
+A bare link is a wiki page; the `kg` prefix marks a knowledge-graph page, the same way `skill` and `dotfiles` mark those destinations. `/llm-wiki:ingest-claude-memory` sweeps for memories missing this marker.
