@@ -48,6 +48,9 @@ MANAGED='{
   "theme": "dark",
   "model": "opus",
   "skipDangerousModePermissionPrompt": true,
+  "permissions": {
+    "allow": [ "mcp__claude_ai_Atlassian_Rovo" ]
+  },
   "statusLine": {
     "type": "command",
     "command": "ccstatusline",
