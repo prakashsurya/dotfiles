@@ -49,7 +49,7 @@ MANAGED='{
   "model": "opus",
   "skipDangerousModePermissionPrompt": true,
   "permissions": {
-    "allow": [ "mcp__claude_ai_Atlassian_Rovo" ]
+    "allow": [ "mcp__claude_ai_Atlassian_Rovo", "mcp__claude_ai_Slack" ]
   },
   "statusLine": {
     "type": "command",
