@@ -85,12 +85,7 @@ These are intentionally not automated:
    sudo sshd -T | grep -E 'passwordauthentication|kbdinteractiveauthentication'
    ```
 4. **Neovim plugins**: Launch `nvim` — kickstart.nvim uses lazy.nvim which auto-installs plugins on first run (the nvim config is pulled unmodified from upstream via chezmoiexternal)
-5. **Support tools server access**: The `support-tools-ssh` script is not managed by
-   these dotfiles. Follow the internal setup guide to install it and its dependencies
-   (granted, AWS SSM plugin, assume profile):
-   [support-tools server access instructions](https://perforce.atlassian.net/wiki/spaces/DLXSUP/pages/1558225912/support-tools+server+access+instructions)
-
-6. **Jenkins tokens**: Add manually after setup:
+5. **Jenkins tokens**: Add manually after setup:
    ```bash
    git config --global dlpx.jenkins-token-selfservice-jenkins-delphix-com <token>
    git config --global dlpx.jenkins-token-masking-jenkins-delphix-com <token>
@@ -107,6 +102,9 @@ These are intentionally not automated:
 - **git-utils Python version**: The `07-pin-git-utils-python` chezmoi script pins
   Python 3.10.7. If git-utils changes its requirement, update `PYTHON_VERSION` in
   `home/.chezmoiscripts/run_always_after_07-pin-git-utils-python.sh`.
+- **Bundle access**: `09-mount-nas` mounts `/nas` directly via NFS. This superseded
+  the old `support-tools-ssh` flow (AWS SSM jump host + `granted` role assumption),
+  which has been removed from these dotfiles.
 
 ## Repository structure
 

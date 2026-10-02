@@ -21,11 +21,6 @@ if command -q pyenv
     pyenv init - fish | source
 end
 
-# Required for AWS role assumption via the granted tool, necessary for access to
-# the support tools server.
-# See: https://perforce.atlassian.net/wiki/spaces/DLXSUP/pages/1558225912/support-tools+server+access+instructions
-alias assume="source /usr/local/bin/assume.fish"
-
 if status is-interactive
     alias c="clear"
     alias claude="claude --dangerously-skip-permissions"
