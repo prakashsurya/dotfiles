@@ -102,9 +102,10 @@ These are intentionally not automated:
 - **git-utils Python version**: The `07-pin-git-utils-python` chezmoi script pins
   Python 3.10.7. If git-utils changes its requirement, update `PYTHON_VERSION` in
   `home/.chezmoiscripts/run_always_after_07-pin-git-utils-python.sh`.
-- **Bundle access**: `09-mount-nas` mounts `/nas` directly via NFS. This superseded
-  the old `support-tools-ssh` flow (AWS SSM jump host + `granted` role assumption),
-  which has been removed from these dotfiles.
+- **Bundle access**: `/nas` comes pre-mounted on these VM images (systemd `nas.mount`
+  unit + `support-tools` group, baked into the image). No dotfiles-managed setup is
+  needed — this superseded the old `support-tools-ssh` flow (AWS SSM jump host +
+  `granted` role assumption), which has been removed from these dotfiles.
 
 ## Repository structure
 

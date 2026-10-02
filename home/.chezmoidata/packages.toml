@@ -5,7 +5,6 @@ apt = [
     "git",
     "curl",
     "make",
-    "nfs-common",
     "ripgrep",
     "jq",
     "python3",
