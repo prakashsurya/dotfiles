@@ -54,6 +54,11 @@ MANAGED='{
     "padding": 0,
     "refreshInterval": 10
   },
+  "hooks": {
+    "WorktreeCreate": [
+      { "hooks": [ { "type": "command", "command": "~/.claude/hooks/worktree-create.sh" } ] }
+    ]
+  },
   "extraKnownMarketplaces": {
     "prakashsurya-claude-plugins": {
       "source": { "source": "git", "url": "git@github.com:prakashsurya/claude-plugins.git" },
