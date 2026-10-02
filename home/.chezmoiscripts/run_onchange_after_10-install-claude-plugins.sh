@@ -35,9 +35,21 @@ done
 OFFICIAL_MARKETPLACE="claude-plugins-official"
 claude plugin marketplace add anthropics/claude-plugins-official
 
-for plugin in superpowers; do
+for plugin in superpowers skill-creator; do
     echo "Installing ${plugin}@${OFFICIAL_MARKETPLACE}..."
     claude plugin install "${plugin}@${OFFICIAL_MARKETPLACE}" --scope user
+done
+
+# Delphix platform-team marketplace — also cherry-picked. Most of it is
+# automation meant for unattended Jenkins runs, and every enabled plugin adds
+# its skill list to each session's context.
+TEAM_MARKETPLACE="delphix-platform-team-claude-plugins"
+claude plugin marketplace add delphix/platform-team-claude-plugins
+
+for plugin in app blackbox dcenter dev-hygiene git-utils handoff hotfix \
+        jenkins jira kg secrets zfs; do
+    echo "Installing ${plugin}@${TEAM_MARKETPLACE}..."
+    claude plugin install "${plugin}@${TEAM_MARKETPLACE}" --scope user
 done
 
 echo "Done."
