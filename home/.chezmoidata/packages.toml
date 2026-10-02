@@ -7,6 +7,9 @@ apt = [
     "make",
     "ripgrep",
     "jq",
+    # ccstatusline (Claude Code statusline) is an npm package
+    "nodejs",
+    "npm",
     "python3",
     "python3-pip",
     # pyenv build dependencies

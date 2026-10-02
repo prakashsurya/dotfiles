@@ -1,0 +1,83 @@
+{
+  "version": 3,
+  "lines": [
+    [
+      {
+        "id": "1",
+        "type": "model",
+        "color": "ansi256:7"
+      },
+      {
+        "id": "2",
+        "type": "separator"
+      },
+      {
+        "id": "fbc77069-aa31-43c2-9da6-48b275c6aa73",
+        "type": "context-bar",
+        "color": "ansi256:7"
+      },
+      {
+        "id": "dd397edc-de3e-4dce-af64-eb4691becd40",
+        "type": "separator"
+      },
+      {
+        "id": "1f8e1886-9421-485c-895b-53b1bf0fd273",
+        "type": "cache-hit-rate",
+        "color": "ansi256:7"
+      },
+      {
+        "id": "4",
+        "type": "separator"
+      },
+      {
+        "id": "5",
+        "type": "git-branch",
+        "color": "ansi256:7"
+      },
+      {
+        "id": "6",
+        "type": "separator"
+      },
+      {
+        "id": "7",
+        "type": "git-changes",
+        "color": "ansi256:7"
+      },
+      {
+        "id": "6995ec02-18b4-438e-ad62-2f59a53034b2",
+        "type": "separator"
+      },
+      {
+        "id": "d4d11d90-431f-4d0d-90ea-4c6ddc523efc",
+        "type": "current-working-dir",
+        "color": "ansi256:7"
+      }
+    ],
+    [],
+    []
+  ],
+  "flexMode": "full-minus-40",
+  "compactThreshold": 60,
+  "colorLevel": 2,
+  "inheritSeparatorColors": false,
+  "globalBold": false,
+  "gitCacheTtlSeconds": 5,
+  "minimalistMode": false,
+  "powerline": {
+    "enabled": false,
+    "separators": [
+      ""
+    ],
+    "separatorInvertBackground": [
+      false
+    ],
+    "startCaps": [],
+    "endCaps": [],
+    "autoAlign": false,
+    "continueThemeAcrossLines": false
+  },
+  "installation": {
+    "method": "pinned",
+    "installedVersion": "2.2.22"
+  }
+}
