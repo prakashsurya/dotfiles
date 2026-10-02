@@ -9,8 +9,8 @@ If a page would help a teammate, it belongs in the knowledge graph, not the wiki
 # Worktrees
 Every worktree lives at `{{ .chezmoi.homeDir }}/src/worktrees/<slug>/<repo>`, grouped by project so a change spanning several repos sits in one directory: `worktrees/HF-1610/{appliance-build,linux-pkg,linux-kernel}`. The `<slug>` matches the branch: `projects/<slug>` for project branches, the hotfix key for hotfix branches.
 
-- Create them with `EnterWorktree`, passing the branch as `name` (`projects/<slug>`, `HF-1610`). A `WorktreeCreate` hook places the worktree here and creates or checks out that branch.
-- When the tool can't be used (a second repo for the same project, a non-`projects/` branch, a detached checkout), run `git worktree add {{ .chezmoi.homeDir }}/src/worktrees/<slug>/<repo> ...` by hand — same layout, no exceptions.
+- Create them with `EnterWorktree`, passing the branch as `name` (`projects/<slug>`, `HF-1610`). A `WorktreeCreate` hook places the worktree here and creates or checks out that branch. A bare name that is not an existing branch is treated as throwaway: `_scratch/<repo>-<name>` on branch `worktree-<name>`.
+- When the tool can't be used (a second repo for the same project, a detached checkout), run `git worktree add {{ .chezmoi.homeDir }}/src/worktrees/<slug>/<repo> ...` by hand — same layout, no exceptions.
 - Never create a worktree as a sibling in `~/src` (`<repo>-wt-*`), in `<repo>/.claude/worktrees`, or in `/tmp`, the scratchpad, or `/nas`.
 - Main clones in `~/src/<repo>` stay on their default branch; project work happens in a worktree.
 - Non-repo artifacts for a project (repro scripts, logs, notes) go in `~/src/worktrees/<slug>/`, not loose in `~/src`.
