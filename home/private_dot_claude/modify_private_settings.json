@@ -50,7 +50,7 @@ MANAGED='{
   "skipDangerousModePermissionPrompt": true,
   "permissions": {
     "defaultMode": "bypassPermissions",
-    "allow": [ "mcp__claude_ai_Atlassian_Rovo", "mcp__claude_ai_Slack" ]
+    "allow": [ "mcp__claude_ai_Atlassian_Rovo" ]
   },
   "statusLine": {
     "type": "command",
