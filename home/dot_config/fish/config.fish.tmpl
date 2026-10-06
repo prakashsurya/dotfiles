@@ -6,7 +6,7 @@ fish_add_path --append $HOME/src/git-utils/bin
 # Required for the dc command
 set -gx DLPX_DC_API_HOST "{{ .dcApiHost }}"
 set -gx DLPX_DC_INSTANCE_PUB_KEY "$HOME/.ssh/id_ed25519.pub"
-set -gx DLPX_DC_USER "{{ .ldapUser }}"
+set -gx DLPX_DC_USER "{{ .oneloginEmail }}"
 
 set -gx GITHUB_TOKEN "{{ .githubToken }}"
 
