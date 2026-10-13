@@ -7,6 +7,8 @@ apt = [
     "make",
     "ripgrep",
     "jq",
+    # language server for the clangd-lsp Claude Code plugin
+    "clangd",
     # ccstatusline (Claude Code statusline) is an npm package
     "nodejs",
     "npm",

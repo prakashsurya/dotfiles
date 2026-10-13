@@ -35,7 +35,10 @@ done
 OFFICIAL_MARKETPLACE="claude-plugins-official"
 claude plugin marketplace add anthropics/claude-plugins-official
 
-for plugin in superpowers skill-creator; do
+# The *-lsp plugins need their language servers, which
+# 09-install-language-servers and packages.toml (clangd) provide.
+for plugin in superpowers skill-creator clangd-lsp pyright-lsp jdtls-lsp \
+        gopls-lsp; do
     echo "Installing ${plugin}@${OFFICIAL_MARKETPLACE}..."
     claude plugin install "${plugin}@${OFFICIAL_MARKETPLACE}" --scope user
 done
@@ -46,8 +49,8 @@ done
 TEAM_MARKETPLACE="delphix-platform-team-claude-plugins"
 claude plugin marketplace add delphix/platform-team-claude-plugins
 
-for plugin in app blackbox dcenter dev-hygiene git-utils handoff hotfix \
-        jenkins jira kg secrets zfs; do
+for plugin in app blackbox code-standards dcenter dev-hygiene git-utils \
+        handoff hotfix jenkins jira kg secrets zfs; do
     echo "Installing ${plugin}@${TEAM_MARKETPLACE}..."
     claude plugin install "${plugin}@${TEAM_MARKETPLACE}" --scope user
 done
