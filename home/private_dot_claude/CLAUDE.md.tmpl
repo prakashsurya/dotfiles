@@ -35,5 +35,13 @@ When saving a memory that captures durable knowledge, write the durable copy fir
 
 A bare link is a wiki page; the `kg` prefix marks a knowledge-graph page, the same way `skill` and `dotfiles` mark those destinations. `/llm-wiki:ingest-claude-memory` sweeps for memories missing this marker.
 
-# Code review
-When addressing review feedback on an open PR, put the changes in a new commit on top of the branch — never amend, squash, or rebase the commits the reviewer already saw — so they can review just what changed since their last pass.
+# Branches and PRs
+- Name development branches `projects/<slug>`, in every repo — `dev-workflow:starting-a-development-branch` creates them with the right upstream. Hotfix branches keep their hotfix key (`HF-1610`).
+- File and update PRs with `gh` (`gh pr create`, `gh pr edit`) or a plain `git push` of the branch. Don't use `git review`, even where a repo's docs suggest it.
+- When addressing review feedback on an open PR, put the changes in a new commit on top of the branch — never amend, squash, or rebase the commits the reviewer already saw — so they can review just what changed since their last pass.
+
+# Specs and plans
+Brainstorming specs and implementation plans (superpowers `docs/superpowers/specs|plans/`) are working artifacts: they live under a gitignored path and are never committed. This overrides the brainstorming skill's "commit the design doc" step. Before writing one, confirm the path is ignored with `git check-ignore`; if it isn't, add it to `.git/info/exclude` or write it in `~/src/worktrees/<slug>/` instead.
+
+# Git config
+`~/.gitconfig` is rendered by chezmoi, so anything written into it is lost on the next `chezmoi apply`. Machine-local and secret values — Jenkins API tokens above all — go in `~/.gitconfig.local`, which `~/.gitconfig` includes: `git config --file ~/.gitconfig.local <key> <value>`, kept mode 600. When a skill says to run `git config --global` for one of these, or to write a separate file such as `~/.gitconfig-dlpx-jenkins` and include it, write to `~/.gitconfig.local` instead.

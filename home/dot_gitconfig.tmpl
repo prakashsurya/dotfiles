@@ -42,8 +42,8 @@
 	ldap-user = {{ .ldapUser }}
 	appliance-user = delphix
 	onelogin-user = {{ .oneloginUser }}
-	# Jenkins tokens are not stored here — add manually:
-	# git config --global dlpx.jenkins-token-<name> <token>
+	# Jenkins tokens are not stored here — add them to ~/.gitconfig.local:
+	# git config --file ~/.gitconfig.local dlpx.jenkins-token-<name> <token>
 [rerere]
 	enabled = true
 [github]
