@@ -49,8 +49,8 @@ done
 TEAM_MARKETPLACE="delphix-platform-team-claude-plugins"
 claude plugin marketplace add delphix/platform-team-claude-plugins
 
-for plugin in app blackbox code-standards dcenter dev-hygiene git-utils \
-        handoff hotfix jenkins jira kg secrets zfs; do
+for plugin in app blackbox code-standards dcenter git git-utils github \
+        handoff hotfix jenkins jira kg secrets writing zfs zfs-merge-upstream; do
     echo "Installing ${plugin}@${TEAM_MARKETPLACE}..."
     claude plugin install "${plugin}@${TEAM_MARKETPLACE}" --scope user
 done
