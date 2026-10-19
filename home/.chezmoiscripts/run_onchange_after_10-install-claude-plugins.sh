@@ -46,8 +46,21 @@ done
 # Delphix platform-team marketplace — also cherry-picked. Most of it is
 # automation meant for unattended Jenkins runs, and every enabled plugin adds
 # its skill list to each session's context.
+#
+# The internal-claude image declares this marketplace in managed settings as a
+# directory source (its ~/src clone), and claude refuses an add from any other
+# source, so follow the managed declaration when there is one.
 TEAM_MARKETPLACE="delphix-platform-team-claude-plugins"
-claude plugin marketplace add delphix/platform-team-claude-plugins
+TEAM_SOURCE="delphix/platform-team-claude-plugins"
+for f in /etc/claude-code/managed-settings.json \
+        /etc/claude-code/managed-settings.d/*.json; do
+    [ -f "$f" ] || continue
+    path=$(jq -r --arg m "$TEAM_MARKETPLACE" \
+        '.extraKnownMarketplaces[$m].source
+            | select(.source == "directory") | .path' "$f")
+    [ -n "$path" ] && TEAM_SOURCE="$path"
+done
+claude plugin marketplace add "$TEAM_SOURCE"
 
 for plugin in app blackbox code-standards dcenter git git-utils github \
         handoff hotfix jenkins jira kg secrets writing zfs zfs-merge-upstream; do
