@@ -1,0 +1,43 @@
+#!/bin/bash
+# Keeps the Delphix platform-team Claude plugins current where the
+# internal-claude image declares their marketplace as a directory source (its
+# ~/src clone). claude never fetches a directory marketplace, and while most
+# of its plugins are read straight from the clone, some run from a cached
+# copy, so pull the clone, refresh the catalog, and update each installed
+# plugin. A no-op where the marketplace comes from
+# GitHub, which claude auto-updates itself. Running sessions keep their old
+# versions until restarted. Scheduled daily by 12-install-team-plugins-cron.
+set -euo pipefail
+
+# cron's PATH has neither claude (/usr/local/bin) nor ~/.local/bin.
+export PATH="$HOME/.local/bin:/usr/local/bin:/usr/bin:/bin"
+
+MARKETPLACE="delphix-platform-team-claude-plugins"
+PLUGINS_DIR="$HOME/.claude/plugins"
+
+echo "== $(date -Is)"
+
+src=$(jq -r --arg m "$MARKETPLACE" \
+    '.[$m] | select(.source.source == "directory") | .source.path' \
+    "$PLUGINS_DIR/known_marketplaces.json" 2>/dev/null || true)
+if [ -z "$src" ]; then
+    echo "$MARKETPLACE is not a directory marketplace, nothing to do."
+    exit 0
+fi
+
+# The clone is the plugin source, so only ever fast-forward its main.
+if [ "$(git -C "$src" symbolic-ref --short -q HEAD)" != "main" ] ||
+        [ -n "$(git -C "$src" status --porcelain)" ]; then
+    echo "$src is not a clean main checkout, skipping." >&2
+    exit 1
+fi
+git -C "$src" pull -q --ff-only
+
+claude plugin marketplace update "$MARKETPLACE"
+
+mapfile -t plugins < <(jq -r --arg m "@$MARKETPLACE" \
+    '.plugins | keys[] | select(endswith($m))' \
+    "$PLUGINS_DIR/installed_plugins.json")
+for plugin in "${plugins[@]}"; do
+    claude plugin update "$plugin"
+done
