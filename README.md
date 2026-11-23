@@ -131,7 +131,7 @@ dotfiles/
     ├── dot_tmux.conf                # → ~/.tmux.conf
     ├── dot_onelogin-aws.config.tmpl # → ~/.onelogin-aws.config
     ├── dot_config/fish/config.fish.tmpl # → ~/.config/fish/config.fish
-    ├── dot_ssh/config.tmpl          # → ~/.ssh/config
+    ├── private_dot_ssh/config.tmpl  # → ~/.ssh/config (private_ ⇒ mode 0700)
     └── private_dot_claude/          # → ~/.claude  (private_ ⇒ mode 0700)
         ├── CLAUDE.md.tmpl           # → ~/.claude/CLAUDE.md (wiki pointer + durable-memory rule)
         ├── modify_private_settings.json # jq-merges dotfiles-owned keys into ~/.claude/settings.json

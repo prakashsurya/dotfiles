@@ -26,7 +26,7 @@ home/.chezmoiexternal.toml.tmpl           # external repos (nvim, tmux, git-util
 home/.chezmoiscripts/                      # install scripts (numbered by dependency order)
 home/dot_config/fish/config.fish.tmpl     # fish shell config
 home/dot_gitconfig.tmpl                   # git config
-home/dot_ssh/config.tmpl                  # SSH config
+home/private_dot_ssh/config.tmpl                  # SSH config
 home/private_dot_claude/                   # → ~/.claude (private_ ⇒ mode 0700)
 ```
 
