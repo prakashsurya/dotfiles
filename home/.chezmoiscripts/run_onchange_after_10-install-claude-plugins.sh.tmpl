@@ -1,0 +1,60 @@
+#!/bin/bash
+# Adds Claude Code marketplaces and installs plugins from each, as listed
+# under claude.plugins in .chezmoidata/profiles.toml: the base entries, then
+# this machine's profile's. Both `marketplace add` and `plugin install` are
+# idempotent (exit 0 if already present), so this script is safe to re-run.
+# Any change to the rendered list changes the file hash, which makes chezmoi
+# re-run the script on next apply.
+set -euo pipefail
+
+if ! command -v claude &>/dev/null; then
+    echo "claude not found, skipping plugin setup."
+    exit 0
+fi
+
+# install_from <marketplace> <source> <needsSsh> <plugin>...
+# A single "*" plugin installs every plugin in the marketplace's manifest.
+install_from() {
+    local marketplace=$1 source=$2 needs_ssh=$3
+    shift 3
+
+    # Private marketplaces need an SSH key for the git@ clone.
+    if [ "$needs_ssh" = true ] && [ ! -f "$HOME/.ssh/id_ed25519" ]; then
+        echo "No SSH key, skipping $marketplace."
+        return
+    fi
+
+    # The internal-claude image declares some marketplaces in managed
+    # settings as a directory source (its ~/src clone), and claude refuses an
+    # add from any other source, so follow the managed declaration when there
+    # is one.
+    local f path
+    for f in /etc/claude-code/managed-settings.json \
+            /etc/claude-code/managed-settings.d/*.json; do
+        [ -f "$f" ] || continue
+        path=$(jq -r --arg m "$marketplace" \
+            '.extraKnownMarketplaces[$m].source
+                | select(.source == "directory") | .path' "$f")
+        [ -n "$path" ] && source="$path"
+    done
+    claude plugin marketplace add "$source"
+
+    local plugins=("$@")
+    if [ "${plugins[*]}" = "*" ]; then
+        local manifest="$HOME/.claude/plugins/marketplaces/$marketplace/.claude-plugin/marketplace.json"
+        mapfile -t plugins < <(jq -r '.plugins[].name' "$manifest")
+    fi
+
+    local plugin
+    for plugin in "${plugins[@]}"; do
+        echo "Installing ${plugin}@${marketplace}..."
+        claude plugin install "${plugin}@${marketplace}" --scope user
+    done
+}
+
+echo "Configuring Claude Code marketplaces and plugins..."
+{{ range concat .base.claude.plugins (dig .profile "claude" "plugins" (list) .profiles) }}
+install_from {{ .marketplace | quote }} {{ .source | quote }} {{ dig "needsSsh" false . }}{{ range .install }} {{ . | quote }}{{ end }}
+{{- end }}
+
+echo "Done."

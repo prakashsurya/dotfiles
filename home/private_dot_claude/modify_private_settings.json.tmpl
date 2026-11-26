@@ -15,6 +15,8 @@
 #
 # Reads the current file on stdin, writes the desired file to stdout.
 # Owns only the keys in MANAGED below; everything else passes through.
+# permissions.allow and extraKnownMarketplaces come from the base and
+# profile claude.allow / claude.marketplaces in .chezmoidata/profiles.toml.
 #
 # "Owns" means add/update only, via jq's recursive `*` merge (see below) —
 # it never deletes. This applies at every nesting level, so a nested map
@@ -50,7 +52,7 @@ MANAGED='{
   "skipDangerousModePermissionPrompt": true,
   "permissions": {
     "defaultMode": "bypassPermissions",
-    "allow": [ "mcp__claude_ai_Atlassian_Rovo" ]
+    "allow": {{ with concat .base.claude.allow (dig .profile "claude" "allow" (list) .profiles) }}{{ toJson . }}{{ else }}[]{{ end }}
   },
   "statusLine": {
     "type": "command",
@@ -63,22 +65,7 @@ MANAGED='{
       { "hooks": [ { "type": "command", "command": "~/.claude/hooks/worktree-create.sh" } ] }
     ]
   },
-  "extraKnownMarketplaces": {
-    "prakashsurya-claude-plugins": {
-      "source": { "source": "git", "url": "git@github.com:prakashsurya/claude-plugins.git" },
-      "autoUpdate": true
-    },
-    "delphix-platform-team-claude-plugins": {
-      "source": { "source": "github", "repo": "delphix/platform-team-claude-plugins" },
-      "autoUpdate": true
-    },
-    "claude-plugins-official": {
-      "source": { "source": "github", "repo": "anthropics/claude-plugins-official" }
-    },
-    "sec-governance-plugin": {
-      "source": { "source": "github", "repo": "PerforceAI/sec-claude-governance" }
-    }
-  }
+  "extraKnownMarketplaces": {{ merge (dict) (dig .profile "claude" "marketplaces" (dict) .profiles) .base.claude.marketplaces | toJson }}
 }'
 
 current=$(cat)

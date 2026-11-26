@@ -1,3 +1,4 @@
+{{- template "profile-guard" . -}}
 [".config/nvim"]
     type          = "git-repo"
     url           = "https://github.com/nvim-lua/kickstart.nvim.git"
@@ -16,10 +17,12 @@
 {{ if stat (joinPath .chezmoi.homeDir ".ssh" "id_ed25519") -}}
 # Private repos — only cloned once an SSH key exists.
 # After generating your key and adding it to GitHub, re-run: chezmoi apply
+{{- if eq .profile "delphix" }}
 ["src/git-utils"]
     type          = "git-repo"
     url           = "git@github.com:delphix/git-utils.git"
     refreshPeriod = "168h"
+{{- end }}
 
 ["llm-wiki"]
     type          = "git-repo"

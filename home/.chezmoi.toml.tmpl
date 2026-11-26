@@ -1,13 +1,26 @@
+{{- /* Machine profile: keep the choices in sync with profileNames in
+       .chezmoidata/profiles.toml. Defaults to delphix on a Delphix
+       internal-claude image, personal anywhere else. */ -}}
+{{- $default := "personal" -}}
+{{- if or (stat "/etc/claude-code/CLAUDE.md") (stat "/opt/delphix") -}}
+{{-   $default = "delphix" -}}
+{{- end -}}
+{{- $profile := promptChoiceOnce . "profile" "Machine profile" (list "delphix" "personal") $default -}}
 [data]
+    profile                 = {{ $profile | quote }}
+    githubUser              = "prakashsurya"
+    githubToken             = {{ promptStringOnce . "githubToken"             "GitHub personal access token"                                          | quote }}
+{{- if eq $profile "delphix" }}
     email                   = "prakash.surya@perforce.com"
     ldapUser                = "psurya"
     oneloginUser            = "prakash.surya"
     oneloginEmail           = "prakash.surya@delphix.com"
-    githubUser              = "prakashsurya"
     dcApiHost               = "sknncxtzxf.execute-api.us-west-2.amazonaws.com"
-    githubToken             = {{ promptStringOnce . "githubToken"             "GitHub personal access token"                                          | quote }}
     oneloginClientId        = {{ promptStringOnce . "oneloginClientId"        "OneLogin client_id"                                                    | quote }}
     oneloginClientSecret    = {{ promptStringOnce . "oneloginClientSecret"    "OneLogin client_secret"                                                | quote }}
     oneloginRoleArn         = {{ promptStringOnce . "oneloginRoleArn"         "OneLogin role ARN (see role_arn in ~/.onelogin-aws.config)"            | quote }}
     oneloginDefaultAwsAppId = {{ promptStringOnce . "oneloginDefaultAwsAppId" "OneLogin AWS app ID, [defaults] section"                              | quote }}
     oneloginAwsAppId        = {{ promptStringOnce . "oneloginAwsAppId"        "OneLogin AWS app ID, [master/eng-secret-user] section"                | quote }}
+{{- else }}
+    email                   = {{ promptStringOnce . "email"                   "Git email"                                                             | quote }}
+{{- end }}

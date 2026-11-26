@@ -1,5 +1,6 @@
 fish_add_path --prepend $HOME/.local/bin
 fish_add_path --append /opt/nvim-linux-x86_64/bin
+{{- if eq .profile "delphix" }}
 fish_add_path --append /opt/delphix/server/bin
 fish_add_path --append $HOME/src/git-utils/bin
 
@@ -7,14 +8,17 @@ fish_add_path --append $HOME/src/git-utils/bin
 set -gx DLPX_DC_API_HOST "{{ .dcApiHost }}"
 set -gx DLPX_DC_INSTANCE_PUB_KEY "$HOME/.ssh/id_ed25519.pub"
 set -gx DLPX_DC_USER "{{ .oneloginEmail }}"
+{{- end }}
 
 set -gx GITHUB_TOKEN "{{ .githubToken }}"
 
 set -gx LLM_WIKI_DIR $HOME/llm-wiki
+{{- if eq .profile "delphix" }}
 set -gx KG_DIR $HOME/src/knowledge-graph
+{{- end }}
 
 # pyenv — manages multiple Python versions. Required because some tools pin
-# specific versions (e.g. git-utils requires Python 3.10.7).
+# specific versions.
 set -gx PYENV_ROOT $HOME/.pyenv
 fish_add_path --prepend $PYENV_ROOT/bin
 if command -q pyenv

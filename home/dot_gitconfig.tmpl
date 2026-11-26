@@ -37,6 +37,7 @@
 	rba = rebase --abort
 	rbc = rebase --continue
 	rbi = rebase --interactive
+{{- if eq .profile "delphix" }}
 [dlpx]
 	email = {{ .email }}
 	ldap-user = {{ .ldapUser }}
@@ -44,6 +45,7 @@
 	onelogin-user = {{ .oneloginUser }}
 	# Jenkins tokens are not stored here — add them to ~/.gitconfig.local:
 	# git config --file ~/.gitconfig.local dlpx.jenkins-token-<name> <token>
+{{- end }}
 [rerere]
 	enabled = true
 [github]

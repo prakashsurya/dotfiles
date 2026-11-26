@@ -1,0 +1,74 @@
+# Machine profiles. Each machine has exactly one, chosen at `chezmoi init`
+# and stored as `profile` in ~/.config/chezmoi/chezmoi.toml. Every machine
+# gets the base layer; its profile adds the rest. See README "Profiles".
+#
+# The profile prompt in .chezmoi.toml.tmpl lists the same names: chezmoi
+# does not expose .chezmoidata to the config template, so keep both in sync.
+# .chezmoiignore refuses to apply with a profile not listed here.
+profileNames = ["delphix", "personal"]
+
+# Lists that differ by profile. A machine gets [base] plus its own
+# [profiles.<name>] block; a profile may omit the block or any key in it.
+#
+#   apt                  extra apt packages, appended to linux.apt
+#   claude.plugins       marketplaces to add and the plugins to install from
+#                        each (run_onchange_after_10-install-claude-plugins):
+#                          marketplace  marketplace name
+#                          source       argument to `claude plugin marketplace add`
+#                          install      plugin names, or ["*"] for every
+#                                       plugin in the marketplace's manifest
+#                          needsSsh     skip unless ~/.ssh/id_ed25519 exists
+#   claude.marketplaces  entries merged into settings.json extraKnownMarketplaces
+#   claude.allow         entries for settings.json permissions.allow
+
+[base.claude]
+allow = []
+
+[[base.claude.plugins]]
+# Anthropic's official marketplace — cherry-pick individual plugins rather
+# than installing everything in it.
+marketplace = "claude-plugins-official"
+source = "anthropics/claude-plugins-official"
+install = ["superpowers"]
+
+[base.claude.marketplaces.claude-plugins-official]
+source = { source = "github", repo = "anthropics/claude-plugins-official" }
+
+[profiles.delphix.claude]
+allow = ["mcp__claude_ai_Atlassian_Rovo"]
+
+[[profiles.delphix.claude.plugins]]
+# Personal marketplace, delphix-only until its Delphix-specific plugins are
+# split out. Private, so the git@ clone needs an SSH key.
+marketplace = "prakashsurya-claude-plugins"
+source = "git@github.com:prakashsurya/claude-plugins.git"
+install = ["*"]
+needsSsh = true
+
+[[profiles.delphix.claude.plugins]]
+# The *-lsp plugins need their language servers, which
+# 09-install-language-servers and packages.toml (clangd) provide.
+marketplace = "claude-plugins-official"
+source = "anthropics/claude-plugins-official"
+install = ["skill-creator", "clangd-lsp", "pyright-lsp", "jdtls-lsp", "gopls-lsp"]
+
+[[profiles.delphix.claude.plugins]]
+# Delphix platform-team marketplace — also cherry-picked. Most of it is
+# automation meant for unattended Jenkins runs, and every enabled plugin adds
+# its skill list to each session's context.
+marketplace = "delphix-platform-team-claude-plugins"
+source = "delphix/platform-team-claude-plugins"
+install = ["app", "blackbox", "code-standards", "dcenter", "git", "git-utils",
+    "github", "handoff", "hotfix", "jenkins", "jira", "kg", "secrets",
+    "writing", "zfs", "zfs-merge-upstream"]
+
+[profiles.delphix.claude.marketplaces.prakashsurya-claude-plugins]
+source = { source = "git", url = "git@github.com:prakashsurya/claude-plugins.git" }
+autoUpdate = true
+
+[profiles.delphix.claude.marketplaces.delphix-platform-team-claude-plugins]
+source = { source = "github", repo = "delphix/platform-team-claude-plugins" }
+autoUpdate = true
+
+[profiles.delphix.claude.marketplaces.sec-governance-plugin]
+source = { source = "github", repo = "PerforceAI/sec-claude-governance" }

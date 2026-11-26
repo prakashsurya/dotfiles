@@ -1,0 +1,9 @@
+{{- /* Every machine must have a known profile; see .chezmoidata/profiles.toml.
+       Included first by every source template that chezmoi renders before
+       the rest of the tree: .chezmoiexternal.toml.tmpl and .chezmoiignore. */ -}}
+{{- if not (hasKey . "profile") -}}
+{{-   fail "profile is not set in ~/.config/chezmoi/chezmoi.toml; run chezmoi init" -}}
+{{- end -}}
+{{- if not (has .profile .profileNames) -}}
+{{-   fail (printf "unknown profile %q; allowed profiles: %s" .profile (join ", " .profileNames)) -}}
+{{- end -}}

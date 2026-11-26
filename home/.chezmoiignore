@@ -1,3 +1,23 @@
+{{- template "profile-guard" . }}
+
+# Each machine gets only its own profile's ~/.claude/profile/<name>.md,
+# which ~/.claude/CLAUDE.md imports.
+.claude/profile/*
+!.claude/profile/{{ .profile }}.md
+
+{{- if ne .profile "delphix" }}
+# Delphix-only files and install scripts. Scripts are matched by target
+# name, as `chezmoi managed --include=scripts` prints it.
+.onelogin-aws.config
+.local/bin/update-team-claude-plugins
+.claude/conventions/dlpx-qa-gate.md
+.claude/conventions/knowledge-graph.md
+.claude/conventions/platform-team-claude-plugins.md
+.chezmoiscripts/always_after_07-pin-git-utils-python.sh
+.chezmoiscripts/12-install-team-plugins-cron.sh
+.chezmoiscripts/13-install-session-manager-plugin.sh
+{{- end }}
+
 # Ignore patterns for files that should not be deployed to $HOME.
 # See: https://www.chezmoi.io/reference/special-files/chezmoiignore/
 
