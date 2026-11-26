@@ -12,6 +12,7 @@ The knowledge graph is the first durable destination, for Delphix knowledge wort
 ```
 
 ## Branches and worktrees
+- Main clones are flat: `~/src/<repo>`, so their worktrees are `worktrees/<slug>/<repo>`.
 - `dev-workflow:starting-a-development-branch` creates `projects/<slug>` branches with the right upstream.
 - Hotfix branches keep their hotfix key (`HF-1610`), and so does their worktree slug: pass the key as the `EnterWorktree` name, giving `worktrees/HF-1610/{appliance-build,linux-pkg,linux-kernel}`.
 - Never create a worktree in `/nas`.

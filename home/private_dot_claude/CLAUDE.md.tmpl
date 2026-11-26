@@ -2,12 +2,12 @@
 `{{ .chezmoi.homeDir }}/llm-wiki`, resolved from `$LLM_WIKI_DIR`, is a personal second brain: half-formed leads, machine-specific setup, working notes not fit to share. It is cloned once this machine has an SSH key; when it is present, read its `INDEX.md` before anything non-trivial and pull any context that applies. (Optional: `/llm-wiki:query` answers questions from it when the plugin is installed.)
 
 # Worktrees
-Every worktree lives at `{{ .chezmoi.homeDir }}/src/worktrees/<slug>/<repo>`, grouped by project so a change spanning several repos sits in one directory: `worktrees/<slug>/{repo-a,repo-b}`. The `<slug>` matches the branch: `projects/<slug>` for project branches.
+Every worktree lives at `{{ .chezmoi.homeDir }}/src/worktrees/<slug>/<path>`, grouped by project so a change spanning several repos sits in one directory: `worktrees/<slug>/{repo-a,repo-b}`. The `<slug>` matches the branch: `projects/<slug>` for project branches. `<path>` is the main clone's path under `~/src`, so the worktrees mirror the clones: `~/src/<owner>/<repo>` gives `worktrees/<slug>/<owner>/<repo>`, which keeps two owners' same-named repos apart, and a flat `~/src/<repo>` gives `worktrees/<slug>/<repo>`.
 
-- Create them with `EnterWorktree`, passing the branch as `name` (`projects/<slug>`). A `WorktreeCreate` hook places the worktree here and creates or checks out that branch. A bare name that is not an existing branch is treated as throwaway: `_scratch/<repo>-<name>` on branch `worktree-<name>`.
-- When the tool can't be used (a second repo for the same project, a detached checkout), run `git worktree add {{ .chezmoi.homeDir }}/src/worktrees/<slug>/<repo> ...` by hand — same layout, no exceptions.
+- Create them with `EnterWorktree`, passing the branch as `name` (`projects/<slug>`). A `WorktreeCreate` hook places the worktree here and creates or checks out that branch. A bare name that is not an existing branch is treated as throwaway: `_scratch/<path>-<name>` on branch `worktree-<name>`.
+- When the tool can't be used (a second repo for the same project, a detached checkout), run `git worktree add {{ .chezmoi.homeDir }}/src/worktrees/<slug>/<path> ...` by hand — same layout, no exceptions.
 - Never create a worktree as a sibling in `~/src` (`<repo>-wt-*`), in `<repo>/.claude/worktrees`, or in `/tmp` or the scratchpad.
-- Main clones in `~/src/<repo>` stay on their default branch; project work happens in a worktree.
+- Main clones live where this machine's profile says (below) and stay on their default branch; project work happens in a worktree.
 - Non-repo artifacts for a project (repro scripts, logs, notes) go in `~/src/worktrees/<slug>/`, not loose in `~/src`.
 
 # Durable memory

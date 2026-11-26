@@ -2,11 +2,16 @@
 # Claude Code WorktreeCreate hook: place every worktree Claude Code creates
 # (EnterWorktree, `claude --worktree`, Agent isolation) at
 #
-#     ~/src/worktrees/<slug>/<repo>
+#     ~/src/worktrees/<slug>/<path>
 #
 # so the worktrees of a change spanning several repos sit side by side in one
 # project directory, instead of scattered across each repo's
-# .claude/worktrees/. CLAUDE_WORKTREE_ROOT overrides ~/src/worktrees.
+# .claude/worktrees/. <path> is the main clone's path under ~/src, so the
+# layout mirrors the clones: ~/src/<owner>/<repo> gives <slug>/<owner>/<repo>
+# (two owners' same-named repos, such as each organization's meta, stay
+# apart), and a flat ~/src/<repo> gives <slug>/<repo>. A clone outside ~/src
+# falls back to its directory name. CLAUDE_WORKTREE_ROOT overrides
+# ~/src/worktrees, and CLAUDE_SRC_ROOT overrides ~/src.
 #
 # Contract (verified against Claude Code 2.1.283): stdin is JSON carrying
 # `name` (the requested worktree name) and `cwd`; stdout must be exactly the
@@ -19,9 +24,9 @@
 # worktrees, keeping its lock-ownership and dirty-tree checks.
 #
 # Naming:
-#   projects/<slug>       -> branch projects/<slug>, dir <root>/<slug>/<repo>
-#   HF-1610 (existing)    -> branch HF-1610,         dir <root>/HF-1610/<repo>
-#   anything else bare    -> branch worktree-<name>, dir <root>/_scratch/<repo>-<name>
+#   projects/<slug>       -> branch projects/<slug>, dir <root>/<slug>/<path>
+#   HF-1610 (existing)    -> branch HF-1610,         dir <root>/HF-1610/<path>
+#   anything else bare    -> branch worktree-<name>, dir <root>/_scratch/<path>-<name>
 #
 # "Anything else bare" covers Claude Code's generated names (agent-a1b2c3d,
 # wf-…, or a random slug when EnterWorktree is called without a name): a
@@ -61,6 +66,7 @@ cwd=$(jq -r '.cwd // empty' <<<"$input")
 
 root=${CLAUDE_WORKTREE_ROOT:-$HOME/src/worktrees}
 [[ $root == /* ]] || die "worktree root '$root' is not an absolute path"
+src=${CLAUDE_SRC_ROOT:-$HOME/src}
 
 # Resolve the main checkout, even when cwd is itself inside a worktree.
 common=$(git -C "$cwd" rev-parse --path-format=absolute --git-common-dir) ||
@@ -70,7 +76,15 @@ if [ "$(basename "$common")" = .git ]; then
 else
 	main=$(git -C "$cwd" rev-parse --show-toplevel)
 fi
+# The clone's path under the source root, or its directory name when it
+# lives elsewhere (or inside the worktree root itself).
 repo=$(basename "$main")
+src_real=$(realpath -m "$src")
+main_real=$(realpath -m "$main")
+root_real=$(realpath -m "$root")
+if [[ $main_real == "$src_real"/* && $main_real != "$root_real"/* ]]; then
+	repo=${main_real#"$src_real"/}
+fi
 
 has_ref() {
 	git -C "$main" show-ref --verify --quiet "$1"
