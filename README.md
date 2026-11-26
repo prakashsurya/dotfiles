@@ -180,6 +180,7 @@ dotfiles/
     ├── dot_tmux.conf                # → ~/.tmux.conf
     ├── dot_onelogin-aws.config.tmpl # → ~/.onelogin-aws.config
     ├── dot_config/fish/config.fish.tmpl # → ~/.config/fish/config.fish
+    ├── dot_config/go/env.tmpl       # → ~/.config/go/env (GOPATH → ~/.local/share/go)
     ├── private_dot_ssh/config.tmpl  # → ~/.ssh/config (private_ ⇒ mode 0700)
     └── private_dot_claude/          # → ~/.claude  (private_ ⇒ mode 0700)
         ├── CLAUDE.md.tmpl           # → ~/.claude/CLAUDE.md (general rules; imports the profile file)
