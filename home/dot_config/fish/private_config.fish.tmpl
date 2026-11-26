@@ -10,10 +10,9 @@ set -gx DLPX_DC_INSTANCE_PUB_KEY "$HOME/.ssh/id_ed25519.pub"
 set -gx DLPX_DC_USER "{{ .oneloginEmail }}"
 {{- end }}
 
-set -gx GITHUB_TOKEN "{{ .githubToken }}"
-
 set -gx LLM_WIKI_DIR $HOME/llm-wiki
 {{- if eq .profile "delphix" }}
+set -gx GITHUB_TOKEN "{{ .githubToken }}"
 set -gx KG_DIR $HOME/src/knowledge-graph
 {{- end }}
 

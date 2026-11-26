@@ -28,13 +28,12 @@ mkdir -p "$DST"
     esac
     echo '    email = "someone@example.com"'
     echo '    githubUser = "someone"'
-    echo '    githubToken = "dummy"'
     # Delphix-only values, given only to delphix (and to missing/bogus,
     # whose apply must fail on the profile check, not on a missing key), so
     # a base template that uses one fails the other profiles' checks.
     case $CASE in
     delphix | missing | bogus)
-        for k in ldapUser oneloginUser oneloginEmail dcApiHost \
+        for k in githubToken ldapUser oneloginUser oneloginEmail dcApiHost \
                 oneloginClientId oneloginClientSecret oneloginRoleArn \
                 oneloginDefaultAwsAppId oneloginAwsAppId; do
             echo "    $k = \"dummy-$k\""

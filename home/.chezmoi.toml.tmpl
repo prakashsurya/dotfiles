@@ -9,8 +9,8 @@
 [data]
     profile                 = {{ $profile | quote }}
     githubUser              = "prakashsurya"
-    githubToken             = {{ promptStringOnce . "githubToken"             "GitHub personal access token"                                          | quote }}
 {{- if eq $profile "delphix" }}
+    githubToken             = {{ promptStringOnce . "githubToken"             "GitHub personal access token"                                          | quote }}
     email                   = "prakash.surya@perforce.com"
     ldapUser                = "psurya"
     oneloginUser            = "prakash.surya"
